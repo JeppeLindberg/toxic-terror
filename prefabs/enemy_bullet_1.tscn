@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cif7oja1cf8tc"]
+
+[ext_resource type="Script" uid="uid://dkkw6sd1syv7x" path="res://scripts/bullet.gd" id="1_l67e3"]
+[ext_resource type="Texture2D" uid="uid://c0il3jcguwea7" path="res://sprites/circle.png" id="2_qnyiu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eb6dy"]
+radius = 12.0
+
+[node name="enemy_bullet_1" type="Node2D"]
+script = ExtResource("1_l67e3")
+target_layer = 1
+
+[node name="sprite" type="Sprite2D" parent="."]
+modulate = Color(1, 0.598582, 0.609807, 1)
+scale = Vector2(0.237959, 0.237959)
+texture = ExtResource("2_qnyiu")
+
+[node name="shape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_eb6dy")
+disabled = true
