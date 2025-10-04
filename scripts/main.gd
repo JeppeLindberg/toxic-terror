@@ -6,13 +6,35 @@ extends Node2D
 @onready var world = get_node('/root/main')
 @onready var debug = get_node('/root/main/debug_ui/debug')
 
-var _seconds = 0.0
+var noise_perlin: FastNoiseLite
 
-func _process(delta: float) -> void:
-	_seconds += delta
+var _seconds = 0.0
+var _delta = 0.0
+var _bullet_id = 0
+var _frame_id = 0
+
+func _ready() -> void:
+	noise_perlin = FastNoiseLite.new()
+	noise_perlin.noise_type = FastNoiseLite.TYPE_PERLIN
+
+func _process(frame_delta: float) -> void:
+	_seconds += frame_delta
+	_delta = frame_delta
+	_frame_id += 1
 
 func seconds():
 	return _seconds
+
+func delta():
+	return _delta
+
+func get_bullet_id():
+	_bullet_id += 1
+	return _bullet_id - 1
+
+func get_frame_id():
+	return _frame_id
+
 
 var _result
 

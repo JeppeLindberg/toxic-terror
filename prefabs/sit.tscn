@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://b78dlredjpcxm"]
+
+[ext_resource type="Script" uid="uid://cm2wdollikubp" path="res://scripts/sit.gd" id="1_2ywpv"]
+
+[node name="sit" type="Node2D"]
+modulate = Color(1, 0.167583, 0.293894, 1)
+z_index = 100
+script = ExtResource("1_2ywpv")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 67.0
+offset_top = -107.0
+offset_right = 152.0
+offset_bottom = -38.0
+theme_override_font_sizes/font_size = 50
+text = "SIT!"
+horizontal_alignment = 1
+vertical_alignment = 1

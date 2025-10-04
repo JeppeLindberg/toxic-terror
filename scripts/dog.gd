@@ -7,6 +7,7 @@ var direction_to_player = Vector2.ZERO
 @onready var stop_move_shape = get_node('stop_move_shape')
 @onready var main = get_node('/root/main')
 @onready var player = get_node('/root/main/player')
+@onready var shield = get_node('shield')
 
 @export var movement_speed : float = 300.0
 
@@ -18,7 +19,7 @@ func _physics_process(_delta: float) -> void:
 
 	direction_to_player = (player.global_position - global_position).normalized()
 
-	if state == 'idle':
+	if (state == 'idle') or (state =='sit'):
 		linear_velocity = Vector2.ZERO
 		return;
 
@@ -50,4 +51,13 @@ func _update_state():
 	if state == 'move_toward_player' and should_stop_move:
 		state = 'idle'
 		return	
-			
+
+func sit():
+	if state != 'sit':
+		state = 'sit'
+		shield.enabled = true
+	else:
+		state = 'move_toward_player'
+		shield.enabled = false
+		_update_state()
+

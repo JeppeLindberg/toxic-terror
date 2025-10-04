@@ -2,13 +2,19 @@ extends RigidBody2D
 
 var movement_direction: Vector2
 
+@export var sit_prefab: PackedScene
+@export var good_boy_prefab: PackedScene
 @export var movement_speed : float = 200.0
 
 @onready var main = get_node('/root/main')
+@onready var dog = get_node('/root/main/dog')
+@onready var behaviour_wide = get_node('behaviour_wide')
+@onready var behaviour_narrow = get_node('behaviour_narrow')
 @onready var sprite:Sprite2D = get_node('sprite')
 @onready var accept_input = true
 
 var starting_pos
+var improve_accuracy = false
 
 
 func _ready() -> void:
@@ -19,19 +25,41 @@ func _ready() -> void:
 func reset():
 	global_position = starting_pos
 
-func _physics_process(delta):
-	handle_controls(delta)
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed('sit'):
+		var new_text = null
+		if dog.state != 'sit':
+			new_text = sit_prefab.instantiate()
+		else:
+			new_text = good_boy_prefab.instantiate()
+		main.add_child(new_text)
+		new_text.global_position = global_position
+		dog.sit()
+	
+	if Input.is_action_pressed('improve_accuracy'):
+		print('activate')
+		if improve_accuracy == false:
+			behaviour_narrow.activate()
+		improve_accuracy = true
+	else:
+		if improve_accuracy == true:
+			behaviour_wide.activate()
+		improve_accuracy = false
 
-	linear_velocity = movement_direction * movement_speed
+
+func _physics_process(delta):
+	handle_movement_controls(delta)
+
+	var modified_speed = movement_speed
+	if improve_accuracy:
+		modified_speed *= 0.5
+
+	linear_velocity = movement_direction * modified_speed
 
 	
-func handle_controls(_delta):
+func handle_movement_controls(_delta):
 	if not accept_input:
 		movement_direction = Vector2.ZERO
-
-		if Input.is_action_just_pressed('reset'):
-			main.reset();
-
 		return
 		
 	var input := Input.get_vector("move_left", "move_right", "move_up", "move_down")

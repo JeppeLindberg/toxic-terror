@@ -3,8 +3,9 @@ extends Control
 
 
 func add_draw_line(from, to):
-	lines.append([from, to])
-	queue_redraw()
+	pass
+	# lines.append([from, to])
+	# queue_redraw()
 
 var lines = []
 

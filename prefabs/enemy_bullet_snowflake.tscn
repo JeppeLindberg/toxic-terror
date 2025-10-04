@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bb2vbiv1w86qa"]
+
+[ext_resource type="Script" uid="uid://dkkw6sd1syv7x" path="res://scripts/bullet.gd" id="1_d5mdx"]
+[ext_resource type="Texture2D" uid="uid://c0il3jcguwea7" path="res://sprites/circle.png" id="2_xucf4"]
+[ext_resource type="Script" uid="uid://c05mxs0gar32g" path="res://scripts/bullet_behavour_snowflake.gd" id="3_xucf4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eb6dy"]
+radius = 12.0
+
+[node name="enemy_bullet_snowflake" type="Node2D"]
+script = ExtResource("1_d5mdx")
+target_layer = 9
+move_speed = 200.0
+max_lifetime = 8.0
+
+[node name="sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.237959, 0.237959)
+texture = ExtResource("2_xucf4")
+
+[node name="shape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_eb6dy")
+disabled = true
+
+[node name="bullet_behaviour" type="Node2D" parent="."]
+script = ExtResource("3_xucf4")

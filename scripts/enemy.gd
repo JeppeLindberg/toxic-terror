@@ -2,14 +2,26 @@ extends Area2D
 
 @onready var enemy_pos_1 = get_node('/root/main/camera_pivot/enemy_pos_1')
 @onready var enemy_pos_2 = get_node('/root/main/camera_pivot/enemy_pos_2')
+@onready var ui = get_node('/root/main/ui')
+@onready var main = get_node('/root/main')
 
 var target_pos = null
 
 @export var move_speed = 20.0
+@export var max_health = 100.0
+
+@onready var _current_health = max_health
+var damage_taken_dec
 
 
 func _ready() -> void:
 	target_pos = enemy_pos_1;
+	
+	for child in main.get_children_in_group(self, 'behaviour'):
+		if child.activate_at_dec == 1.0:
+			child.activate()
+			return;
+
 
 func _process(delta: float) -> void:
 	if target_pos != null:
@@ -20,5 +32,16 @@ func _process(delta: float) -> void:
 			else:
 				target_pos = enemy_pos_1
 
-func hit():
-	pass
+func hit(damage = 1.0):
+	var prev_dec = _current_health/max_health
+	_current_health -= damage * damage_taken_dec
+	ui.enemy_health.set_health_dec(_current_health/max_health)
+	var new_dec = _current_health/max_health
+	
+	for child in main.get_children_in_group(self, 'behaviour'):
+		if new_dec <= child.activate_at_dec and child.activate_at_dec < prev_dec:
+			child.activate()
+			return;
+
+
+

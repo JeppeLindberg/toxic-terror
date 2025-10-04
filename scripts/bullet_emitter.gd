@@ -2,17 +2,31 @@ extends Node2D
 
 @onready var bullets = get_node('/root/main/bullets')
 @onready var pattern = get_node_or_null('pattern')
+@onready var main = get_node('/root/main')
+@onready var player = get_node('/root/main/player')
 
 @export var bullet: PackedScene
 @export var bullets_per_sec = 5.0
+@export var x_follow_player = false
+@export var base_charge_dec = 0.0
 
 var time_charge = 0.0
 var index = 0
+var emit = false
 
+
+func _ready() -> void:
+	add_to_group('bullet_emitter')
 
 func _current_pattern():
+	var result = []
+	for p in _current_pattern_helper():
+		result.append(p.rotated(rotation))
+	return result
+
+func _current_pattern_helper():
 	if pattern == null:
-		return [Vector2.DOWN]
+		return [Vector2.RIGHT]
 	
 	if index >= len(pattern.pattern):
 		index = 0
@@ -23,22 +37,36 @@ func _current_pattern():
 		return current_pattern['vectors']
 
 	if current_pattern['type'] == 'deg':
+		if current_pattern.get('bullet_count') == null:
+			current_pattern['bullet_count'] = 1000
+		if current_pattern.get('base') == null:
+			current_pattern['base'] = Vector2.RIGHT
+
 		var result = []
 		var deg = 0.0
+		var count = 0
 		deg += current_pattern['offset']
-		while deg < (360.0 + current_pattern['offset']):
+		while deg < (360.0 + current_pattern['offset']) and count < current_pattern['bullet_count']:
 			result.append(current_pattern['base'].rotated(deg_to_rad(deg)))
 			deg += current_pattern['degree']
+			count += 1
 		return result
 	
-	return [Vector2.DOWN]
+	return [Vector2.RIGHT]
 
 
 func _process(delta: float) -> void:
-	time_charge += bullets_per_sec * delta
+	if x_follow_player:
+		look_at(player.global_position)
 
-	while time_charge > 1.0:
-		time_charge -= 1.0
+	if emit == false:
+		time_charge = base_charge_dec * (1.0 / bullets_per_sec)
+		return
+
+	time_charge += delta
+
+	while time_charge > (1.0 / bullets_per_sec):
+		time_charge -= (1.0 / bullets_per_sec)
 
 		for p in _current_pattern():
 			var new_bullet = bullet.instantiate()
