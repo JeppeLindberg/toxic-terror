@@ -82,8 +82,7 @@ script = ExtResource("7_gqmmt")
 position = Vector2(0, -177)
 script = ExtResource("8_y6deb")
 packed_scene = ExtResource("9_og1vs")
-interval = 50.0
-count = 60
+count = 30
 
 [node name="lich_behaviour_2" type="Node2D" parent="lich"]
 script = ExtResource("4_0ld40")
@@ -127,7 +126,8 @@ script = ExtResource("13_yc10j")
 [node name="bullet_emitter_narrow_1" type="Node2D" parent="player/behaviour_narrow"]
 script = ExtResource("6_tipki")
 bullet = ExtResource("15_jscy8")
-bullets_per_sec = 7.0
+base_bullets_per_sec = 7.0
+base_charge_dec = 0.5
 
 [node name="pattern" type="Node2D" parent="player/behaviour_narrow/bullet_emitter_narrow_1"]
 script = ExtResource("15_yc10j")
@@ -136,8 +136,7 @@ script = ExtResource("15_yc10j")
 position = Vector2(18, 0)
 script = ExtResource("6_tipki")
 bullet = ExtResource("15_jscy8")
-bullets_per_sec = 7.0
-base_charge_dec = 0.5
+base_bullets_per_sec = 7.0
 
 [node name="pattern" type="Node2D" parent="player/behaviour_narrow/bullet_emitter_narrow_2"]
 script = ExtResource("15_yc10j")
@@ -146,8 +145,7 @@ script = ExtResource("15_yc10j")
 position = Vector2(-18, 0)
 script = ExtResource("6_tipki")
 bullet = ExtResource("15_jscy8")
-bullets_per_sec = 7.0
-base_charge_dec = 0.5
+base_bullets_per_sec = 7.0
 
 [node name="pattern" type="Node2D" parent="player/behaviour_narrow/bullet_emitter_narrow_3"]
 script = ExtResource("15_yc10j")

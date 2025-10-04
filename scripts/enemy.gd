@@ -12,9 +12,12 @@ var target_pos = null
 
 @onready var _current_health = max_health
 var damage_taken_dec
+var current_health_dec = 1.0
 
 
 func _ready() -> void:
+	add_to_group('enemy')
+
 	target_pos = enemy_pos_1;
 	
 	for child in main.get_children_in_group(self, 'behaviour'):
@@ -38,6 +41,8 @@ func hit(damage = 1.0):
 	ui.enemy_health.set_health_dec(_current_health/max_health)
 	var new_dec = _current_health/max_health
 	
+	current_health_dec = clamp(new_dec, 0.0, 1.0)
+
 	for child in main.get_children_in_group(self, 'behaviour'):
 		if new_dec <= child.activate_at_dec and child.activate_at_dec < prev_dec:
 			child.activate()

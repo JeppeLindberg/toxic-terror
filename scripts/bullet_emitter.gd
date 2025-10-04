@@ -6,9 +6,12 @@ extends Node2D
 @onready var player = get_node('/root/main/player')
 
 @export var bullet: PackedScene
-@export var bullets_per_sec = 5.0
+@export var base_bullets_per_sec = 5.0
+var _bullets_per_sec = 5.0
 @export var x_follow_player = false
 @export var base_charge_dec = 0.0
+@export var scale_bullets_per_sec_w_damage_taken = false
+var scale_bullets_per_sec_w_damage_taken_node = null
 
 var time_charge = 0.0
 var index = 0
@@ -17,6 +20,19 @@ var emit = false
 
 func _ready() -> void:
 	add_to_group('bullet_emitter')
+
+	_bullets_per_sec = base_bullets_per_sec
+
+	if scale_bullets_per_sec_w_damage_taken:
+		var node = self
+		while node.get('current_health_dec') == null:
+			print(node)
+			node = node.get_parent()
+			if node == main:
+				scale_bullets_per_sec_w_damage_taken = false
+				return
+
+		scale_bullets_per_sec_w_damage_taken_node = node
 
 func _current_pattern():
 	var result = []
@@ -59,14 +75,19 @@ func _process(delta: float) -> void:
 	if x_follow_player:
 		look_at(player.global_position)
 
+	var calc_bullets_per_sec = _bullets_per_sec
+
+	if scale_bullets_per_sec_w_damage_taken:
+		calc_bullets_per_sec *= 1.0 - scale_bullets_per_sec_w_damage_taken_node.current_health_dec
+
 	if emit == false:
-		time_charge = base_charge_dec * (1.0 / bullets_per_sec)
+		time_charge = base_charge_dec * (1.0 / calc_bullets_per_sec)
 		return
 
 	time_charge += delta
 
-	while time_charge > (1.0 / bullets_per_sec):
-		time_charge -= (1.0 / bullets_per_sec)
+	while time_charge > (1.0 / calc_bullets_per_sec):
+		time_charge -= (1.0 / calc_bullets_per_sec)
 
 		for p in _current_pattern():
 			var new_bullet = bullet.instantiate()
