@@ -26,7 +26,6 @@ func _ready() -> void:
 	if scale_bullets_per_sec_w_damage_taken:
 		var node = self
 		while node.get('current_health_dec') == null:
-			print(node)
 			node = node.get_parent()
 			if node == main:
 				scale_bullets_per_sec_w_damage_taken = false

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ywe41eorqc0j"]
 
 [ext_resource type="Script" uid="uid://bvgwp2okbuhhe" path="res://scripts/bullet_emitter.gd" id="1_o72s6"]
-[ext_resource type="PackedScene" uid="uid://bb2vbiv1w86qa" path="res://prefabs/enemy_bullet_snowflake.tscn" id="2_o72s6"]
+[ext_resource type="PackedScene" uid="uid://bb2vbiv1w86qa" path="res://prefabs/bullet_lich_snowflake.tscn" id="2_o72s6"]
 [ext_resource type="Script" uid="uid://3wtdags3jvn7" path="res://scripts/pattern_lich_showfall.gd" id="3_kame0"]
 
 [node name="bullet_emitter_snowfall" type="Node2D"]

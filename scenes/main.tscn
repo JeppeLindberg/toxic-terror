@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://08tcbi0rlywr"]
+[gd_scene load_steps=34 format=3 uid="uid://08tcbi0rlywr"]
 
 [ext_resource type="Texture2D" uid="uid://w66tk04ms77e" path="res://sprites/white.png" id="1_0wfyh"]
 [ext_resource type="Texture2D" uid="uid://6uvykki1lldt" path="res://sprites/dog.png" id="1_o5qli"]
@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://bliqtt0vluaog" path="res://scripts/dog.gd" id="3_jyhfs"]
 [ext_resource type="Script" uid="uid://ca44ikmyfpltn" path="res://scripts/enemy.gd" id="3_o6xl0"]
 [ext_resource type="Script" uid="uid://043iv0jd846f" path="res://scripts/behaviour.gd" id="4_0ld40"]
-[ext_resource type="PackedScene" uid="uid://cif7oja1cf8tc" path="res://prefabs/enemy_bullet_1.tscn" id="5_eb6dy"]
+[ext_resource type="PackedScene" uid="uid://cif7oja1cf8tc" path="res://prefabs/bullet_lich_direct.tscn" id="5_eb6dy"]
 [ext_resource type="Script" uid="uid://5rosrjpl8hxe" path="res://scripts/pattern_lich_2.gd" id="5_ya4ey"]
 [ext_resource type="Script" uid="uid://bvgwp2okbuhhe" path="res://scripts/bullet_emitter.gd" id="6_tipki"]
 [ext_resource type="PackedScene" uid="uid://d17rg63p8cs3f" path="res://prefabs/player_bullet.tscn" id="7_85g3d"]
@@ -32,6 +32,9 @@ radius = 46.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_jyhfs"]
 radius = 2.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_og1vs"]
+radius = 860.001
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_tefeu"]
 radius = 65.0692
 
@@ -39,7 +42,7 @@ radius = 65.0692
 radius = 27.0185
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jkv2x"]
-radius = 93.0
+radius = 82.0975
 
 [sub_resource type="Theme" id="Theme_jbj1t"]
 
@@ -109,6 +112,7 @@ gravity_scale = 0.0
 script = ExtResource("1_sugp2")
 sit_prefab = ExtResource("2_a8y0u")
 good_boy_prefab = ExtResource("10_jkv2x")
+movement_speed = 400.0
 
 [node name="behaviour_wide" type="Node2D" parent="player"]
 script = ExtResource("13_yc10j")
@@ -157,6 +161,20 @@ texture = ExtResource("1_0wfyh")
 [node name="collider" type="CollisionShape2D" parent="player"]
 shape = SubResource("CircleShape2D_jyhfs")
 
+[node name="damage_taken_timer" type="Timer" parent="player"]
+wait_time = 3.0
+one_shot = true
+
+[node name="all_shield" type="Area2D" parent="player"]
+collision_layer = 24
+collision_mask = 24
+script = ExtResource("15_jbj1t")
+seconds_to_grow_to_max = 3.0
+
+[node name="shield_collider" type="CollisionShape2D" parent="player/all_shield"]
+shape = SubResource("CircleShape2D_og1vs")
+disabled = true
+
 [node name="dog" type="RigidBody2D" parent="."]
 collision_layer = 5
 collision_mask = 4
@@ -178,7 +196,6 @@ shape = SubResource("CircleShape2D_tbgi4")
 disabled = true
 
 [node name="shield" type="Area2D" parent="dog"]
-visible = false
 collision_layer = 8
 collision_mask = 8
 script = ExtResource("15_jbj1t")
@@ -246,3 +263,5 @@ offset_bottom = 15.0
 grow_vertical = 2
 theme = SubResource("Theme_jbj1t")
 theme_override_styles/panel = SubResource("StyleBoxFlat_muem4")
+
+[connection signal="timeout" from="player/damage_taken_timer" to="player" method="_on_damage_taken_timer_timeout"]

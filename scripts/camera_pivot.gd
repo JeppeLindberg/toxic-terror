@@ -10,4 +10,4 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	global_position += Vector2.UP * move_speed * delta
+	global_position += Vector2.DOWN * move_speed * delta

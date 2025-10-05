@@ -5,13 +5,17 @@ var movement_direction: Vector2
 @export var sit_prefab: PackedScene
 @export var good_boy_prefab: PackedScene
 @export var movement_speed : float = 200.0
+@export var slow_mode_mult = 0.25
 
 @onready var main = get_node('/root/main')
 @onready var dog = get_node('/root/main/dog')
 @onready var behaviour_wide = get_node('behaviour_wide')
 @onready var behaviour_narrow = get_node('behaviour_narrow')
 @onready var sprite:Sprite2D = get_node('sprite')
-@onready var accept_input = true
+@onready var all_shield = get_node('all_shield')
+@onready var damage_taken_timer:Timer = get_node('damage_taken_timer')
+
+var accept_input = true
 
 var starting_pos
 var improve_accuracy = false
@@ -37,7 +41,6 @@ func _process(_delta: float) -> void:
 		dog.sit()
 	
 	if Input.is_action_pressed('improve_accuracy'):
-		print('activate')
 		if improve_accuracy == false:
 			behaviour_narrow.activate()
 		improve_accuracy = true
@@ -52,7 +55,7 @@ func _physics_process(delta):
 
 	var modified_speed = movement_speed
 	if improve_accuracy:
-		modified_speed *= 0.5
+		modified_speed *= slow_mode_mult
 
 	linear_velocity = movement_direction * modified_speed
 
@@ -67,4 +70,10 @@ func handle_movement_controls(_delta):
 	movement_direction = input.normalized()
 
 func hit():
-	print('player_hit')
+	all_shield.enabled = true
+	damage_taken_timer.start()
+
+
+func _on_damage_taken_timer_timeout() -> void:
+	all_shield.enabled = false
+	print(all_shield.enabled)
