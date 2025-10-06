@@ -6,6 +6,7 @@ extends Area2D
 @onready var main = get_node('/root/main')
 
 var target_pos = null
+var initialized = false
 
 @export var move_speed = 20.0
 @export var max_health = 100.0
@@ -13,6 +14,9 @@ var target_pos = null
 @onready var _current_health = max_health
 var damage_taken_dec
 var current_health_dec = 1.0
+
+signal spawn_complete
+signal dead
 
 
 func _ready() -> void:
@@ -25,8 +29,12 @@ func _ready() -> void:
 			child.activate()
 			return;
 
-
 func _process(delta: float) -> void:
+	if not initialized:
+		ui.enemy_health.set_health_dec(1.0)
+		spawn_complete.emit()
+		initialized = true
+
 	if target_pos != null:
 		global_position +=( target_pos.global_position - global_position).normalized() * move_speed*delta
 		if target_pos.global_position.distance_to(global_position) < 5.0:
@@ -46,7 +54,11 @@ func hit(damage = 1.0):
 	for child in main.get_children_in_group(self, 'behaviour'):
 		if new_dec <= child.activate_at_dec and child.activate_at_dec < prev_dec:
 			child.activate()
-			return;
+			break;
+	
+	if _current_health <= 0.0:
+		dead.emit()
+		queue_free()
 
 
 

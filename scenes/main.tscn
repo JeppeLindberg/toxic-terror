@@ -1,22 +1,17 @@
-[gd_scene load_steps=34 format=3 uid="uid://08tcbi0rlywr"]
+[gd_scene load_steps=28 format=3 uid="uid://08tcbi0rlywr"]
 
 [ext_resource type="Texture2D" uid="uid://w66tk04ms77e" path="res://sprites/white.png" id="1_0wfyh"]
 [ext_resource type="Texture2D" uid="uid://6uvykki1lldt" path="res://sprites/dog.png" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://mj5rryc047c7" path="res://scripts/player.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://cg4h8dfhcecue" path="res://scripts/main.gd" id="1_tbgi4"]
+[ext_resource type="Script" uid="uid://dyimu4htgkla" path="res://scripts/manager.gd" id="2_0ld40"]
 [ext_resource type="PackedScene" uid="uid://b78dlredjpcxm" path="res://prefabs/sit.tscn" id="2_a8y0u"]
 [ext_resource type="Script" uid="uid://dd6y615h01e4g" path="res://scripts/camera_pivot.gd" id="2_tefeu"]
+[ext_resource type="PackedScene" uid="uid://b6626f0ja7eqp" path="res://prefabs/enemy_lich_1.tscn" id="3_0ld40"]
 [ext_resource type="Script" uid="uid://bliqtt0vluaog" path="res://scripts/dog.gd" id="3_jyhfs"]
-[ext_resource type="Script" uid="uid://ca44ikmyfpltn" path="res://scripts/enemy.gd" id="3_o6xl0"]
-[ext_resource type="Script" uid="uid://043iv0jd846f" path="res://scripts/behaviour.gd" id="4_0ld40"]
-[ext_resource type="PackedScene" uid="uid://cif7oja1cf8tc" path="res://prefabs/bullet_lich_direct.tscn" id="5_eb6dy"]
-[ext_resource type="Script" uid="uid://5rosrjpl8hxe" path="res://scripts/pattern_lich_2.gd" id="5_ya4ey"]
 [ext_resource type="Script" uid="uid://bvgwp2okbuhhe" path="res://scripts/bullet_emitter.gd" id="6_tipki"]
 [ext_resource type="PackedScene" uid="uid://d17rg63p8cs3f" path="res://prefabs/player_bullet.tscn" id="7_85g3d"]
-[ext_resource type="Script" uid="uid://fmco0mxfx7t2" path="res://scripts/pattern_lich_1.gd" id="7_gqmmt"]
 [ext_resource type="Script" uid="uid://d3i6m57vhi8q" path="res://scripts/pattern_player_wide.gd" id="8_choun"]
-[ext_resource type="Script" uid="uid://bcau0eex44e5i" path="res://scripts/array_copier.gd" id="8_y6deb"]
-[ext_resource type="PackedScene" uid="uid://ywe41eorqc0j" path="res://prefabs/bullet_emitter_snowfall.tscn" id="9_og1vs"]
 [ext_resource type="PackedScene" uid="uid://bohy668s4xdpv" path="res://prefabs/good_boy.tscn" id="10_jkv2x"]
 [ext_resource type="Script" uid="uid://c71naeidgp1k6" path="res://scripts/debug.gd" id="13_trceg"]
 [ext_resource type="Script" uid="uid://davvs2ce4n0pj" path="res://scripts/player_behaviour.gd" id="13_yc10j"]
@@ -25,9 +20,6 @@
 [ext_resource type="Script" uid="uid://bu2oy126oeco4" path="res://scripts/pattern_player_narrow.gd" id="15_yc10j"]
 [ext_resource type="Script" uid="uid://d2nif65d6fvwf" path="res://scripts/ui.gd" id="17_dp3eg"]
 [ext_resource type="Script" uid="uid://c416j0e44w7a7" path="res://scripts/enemy_health.gd" id="17_muem4"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_choun"]
-radius = 46.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jyhfs"]
 radius = 2.0
@@ -52,58 +44,24 @@ bg_color = Color(1, 1, 1, 1)
 [node name="main" type="Node2D"]
 script = ExtResource("1_tbgi4")
 
+[node name="manager" type="Node2D" parent="." node_paths=PackedStringArray("enemy_spawn_pos")]
+script = ExtResource("2_0ld40")
+enemy_spawn_pos = NodePath("../camera_pivot/enemy_spawn_pos")
+lich_1_prefab = ExtResource("3_0ld40")
+
 [node name="camera_pivot" type="Node2D" parent="."]
 script = ExtResource("2_tefeu")
+
+[node name="enemy_spawn_pos" type="Node2D" parent="camera_pivot"]
+position = Vector2(0, -337)
 
 [node name="enemy_pos_1" type="Node2D" parent="camera_pivot"]
 position = Vector2(-205, -343)
 
 [node name="enemy_pos_2" type="Node2D" parent="camera_pivot"]
-position = Vector2(187, -333)
+position = Vector2(206, -340)
 
 [node name="camera" type="Camera2D" parent="camera_pivot"]
-
-[node name="lich" type="Area2D" parent="."]
-position = Vector2(-165, -336)
-collision_layer = 2
-collision_mask = 2
-script = ExtResource("3_o6xl0")
-move_speed = 40.0
-
-[node name="lich_behaviour_1" type="Node2D" parent="lich"]
-script = ExtResource("4_0ld40")
-
-[node name="bullet_emitter_direct" type="Node2D" parent="lich/lich_behaviour_1"]
-script = ExtResource("6_tipki")
-bullet = ExtResource("5_eb6dy")
-x_follow_player = true
-
-[node name="pattern" type="Node2D" parent="lich/lich_behaviour_1/bullet_emitter_direct"]
-script = ExtResource("7_gqmmt")
-
-[node name="snowfall_emitters" type="Node2D" parent="lich/lich_behaviour_1"]
-position = Vector2(0, -177)
-script = ExtResource("8_y6deb")
-packed_scene = ExtResource("9_og1vs")
-count = 30
-
-[node name="lich_behaviour_2" type="Node2D" parent="lich"]
-script = ExtResource("4_0ld40")
-activate_at_dec = 0.2
-damage_taken_dec = 0.2
-
-[node name="bullet_emitter" type="Node2D" parent="lich/lich_behaviour_2"]
-script = ExtResource("6_tipki")
-bullet = ExtResource("5_eb6dy")
-
-[node name="pattern" type="Node2D" parent="lich/lich_behaviour_2/bullet_emitter"]
-script = ExtResource("5_ya4ey")
-
-[node name="sprite" type="Sprite2D" parent="lich"]
-texture = ExtResource("1_0wfyh")
-
-[node name="collider" type="CollisionShape2D" parent="lich"]
-shape = SubResource("CircleShape2D_choun")
 
 [node name="player" type="RigidBody2D" parent="."]
 position = Vector2(107, 0)
