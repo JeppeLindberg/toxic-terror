@@ -11,11 +11,11 @@
 [ext_resource type="Script" uid="uid://5rosrjpl8hxe" path="res://scripts/pattern_lich_2.gd" id="9_iyvd6"]
 [ext_resource type="PackedScene" uid="uid://ksmmvc4avw6e" path="res://prefabs/bullet_lich_seeker.tscn" id="10_g3mce"]
 [ext_resource type="Script" uid="uid://ca5crlgksiui8" path="res://scripts/pattern_lich_seeker.gd" id="10_m3pee"]
-[ext_resource type="Texture2D" uid="uid://w66tk04ms77e" path="res://sprites/white.png" id="10_tqecf"]
 [ext_resource type="Script" uid="uid://c8xc8dpkdmjmg" path="res://scripts/orbiter.gd" id="10_xsovb"]
+[ext_resource type="Texture2D" uid="uid://umnq2in8e2tw" path="res://sprites/lich.png" id="13_xsovb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_choun"]
-radius = 46.0
+radius = 60.075
 
 [node name="lich" type="Area2D"]
 collision_layer = 2
@@ -26,7 +26,6 @@ max_health = 150.0
 
 [node name="lich_behaviour_1" type="Node2D" parent="."]
 script = ExtResource("2_m3pee")
-activate_at_dec = 0.3
 
 [node name="bullet_emitter_direct" type="Node2D" parent="lich_behaviour_1"]
 script = ExtResource("3_g3mce")
@@ -44,6 +43,7 @@ count = 30
 
 [node name="lich_behaviour_2" type="Node2D" parent="."]
 script = ExtResource("2_m3pee")
+activate_at_dec = 0.3
 damage_taken_dec = 0.3
 
 [node name="bullet_emitter_last_wish" type="Node2D" parent="lich_behaviour_2"]
@@ -66,7 +66,9 @@ base_bullets_per_sec = 10.0
 script = ExtResource("10_m3pee")
 
 [node name="sprite" type="Sprite2D" parent="."]
-texture = ExtResource("10_tqecf")
+texture_filter = 1
+position = Vector2(-19, 26)
+texture = ExtResource("13_xsovb")
 
 [node name="collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_choun")
