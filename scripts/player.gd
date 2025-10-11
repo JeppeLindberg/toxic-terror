@@ -14,6 +14,8 @@ var movement_direction: Vector2
 @onready var sprite:Sprite2D = get_node('sprite')
 @onready var all_shield = get_node('all_shield')
 @onready var damage_taken_timer:Timer = get_node('damage_taken_timer')
+@onready var manager = get_node('/root/main/manager')
+@onready var spawn_pos = get_node('/root/main/camera_pivot/player_spawn_pos')
 
 var accept_input = true
 
@@ -24,6 +26,7 @@ var improve_accuracy = false
 func _ready() -> void:
 	add_to_group('player')
 
+	global_position = spawn_pos.global_position
 	starting_pos = global_position
 
 func reset():
@@ -50,17 +53,25 @@ func _process(_delta: float) -> void:
 		improve_accuracy = false
 
 
-func _physics_process(delta):
-	handle_movement_controls(delta)
+func _physics_process(_delta):
+	handle_movement_controls()
 
-	var modified_speed = movement_speed
-	if improve_accuracy:
-		modified_speed *= slow_mode_mult
+	if manager.simulate:
+		var modified_speed = movement_speed
+		if improve_accuracy:
+			modified_speed *= slow_mode_mult
 
-	linear_velocity = movement_direction * modified_speed
+		linear_velocity = movement_direction * modified_speed
+	
+	if not manager.simulate:
+		var dist =  movement_speed * 10.0
+		if spawn_pos.global_position.distance_to(global_position) < dist:
+			linear_velocity = spawn_pos.global_position - global_position
+		else:
+			linear_velocity =( spawn_pos.global_position - global_position).normalized() * dist
 
 	
-func handle_movement_controls(_delta):
+func handle_movement_controls():
 	if not accept_input:
 		movement_direction = Vector2.ZERO
 		return

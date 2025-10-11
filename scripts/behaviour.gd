@@ -11,11 +11,12 @@ func _ready() -> void:
 
 
 func activate():
-	get_parent().damage_taken_dec = damage_taken_dec
+	var enemy = self
+	while not enemy.is_in_group('enemy'):
+		enemy = enemy.get_parent()
+
+	enemy.damage_taken_dec = damage_taken_dec
 	for emitter in main.get_children_in_group(get_parent(), 'bullet_emitter'):
 		emitter.emit = false
 	for emitter in main.get_children_in_group(self, 'bullet_emitter'):
 		emitter.emit = true
-
-
-

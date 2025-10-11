@@ -1,17 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://b6626f0ja7eqp"]
+[gd_scene load_steps=5 format=3 uid="uid://b6626f0ja7eqp"]
 
 [ext_resource type="Script" uid="uid://ca44ikmyfpltn" path="res://scripts/enemy.gd" id="1_75jj7"]
-[ext_resource type="Script" uid="uid://043iv0jd846f" path="res://scripts/behaviour.gd" id="2_m3pee"]
-[ext_resource type="Script" uid="uid://bvgwp2okbuhhe" path="res://scripts/bullet_emitter.gd" id="3_g3mce"]
-[ext_resource type="PackedScene" uid="uid://cif7oja1cf8tc" path="res://prefabs/bullet_lich_direct.tscn" id="4_xsovb"]
-[ext_resource type="Script" uid="uid://fmco0mxfx7t2" path="res://scripts/pattern_lich_1.gd" id="5_q3xd8"]
-[ext_resource type="Script" uid="uid://bcau0eex44e5i" path="res://scripts/array_copier.gd" id="6_paemm"]
-[ext_resource type="PackedScene" uid="uid://ywe41eorqc0j" path="res://prefabs/bullet_emitter_snowfall.tscn" id="7_fqac5"]
-[ext_resource type="PackedScene" uid="uid://bbv84r70kvc2s" path="res://prefabs/bullet_lich_last_wish.tscn" id="8_ul6e3"]
-[ext_resource type="Script" uid="uid://5rosrjpl8hxe" path="res://scripts/pattern_lich_2.gd" id="9_iyvd6"]
-[ext_resource type="PackedScene" uid="uid://ksmmvc4avw6e" path="res://prefabs/bullet_lich_seeker.tscn" id="10_g3mce"]
-[ext_resource type="Script" uid="uid://ca5crlgksiui8" path="res://scripts/pattern_lich_seeker.gd" id="10_m3pee"]
-[ext_resource type="Script" uid="uid://c8xc8dpkdmjmg" path="res://scripts/orbiter.gd" id="10_xsovb"]
+[ext_resource type="PackedScene" uid="uid://dhbmmmi0v018q" path="res://prefabs/lich_tier_2.tscn" id="2_t2q5h"]
 [ext_resource type="Texture2D" uid="uid://umnq2in8e2tw" path="res://sprites/lich.png" id="13_xsovb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_choun"]
@@ -21,49 +11,9 @@ radius = 60.075
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_75jj7")
+tier_2 = ExtResource("2_t2q5h")
 move_speed = 40.0
 max_health = 150.0
-
-[node name="lich_behaviour_1" type="Node2D" parent="."]
-script = ExtResource("2_m3pee")
-
-[node name="bullet_emitter_direct" type="Node2D" parent="lich_behaviour_1"]
-script = ExtResource("3_g3mce")
-bullet = ExtResource("4_xsovb")
-x_follow_player = true
-
-[node name="pattern" type="Node2D" parent="lich_behaviour_1/bullet_emitter_direct"]
-script = ExtResource("5_q3xd8")
-
-[node name="snowfall_emitters" type="Node2D" parent="lich_behaviour_1"]
-position = Vector2(0, -177)
-script = ExtResource("6_paemm")
-packed_scene = ExtResource("7_fqac5")
-count = 30
-
-[node name="lich_behaviour_2" type="Node2D" parent="."]
-script = ExtResource("2_m3pee")
-activate_at_dec = 0.3
-damage_taken_dec = 0.3
-
-[node name="bullet_emitter_last_wish" type="Node2D" parent="lich_behaviour_2"]
-script = ExtResource("3_g3mce")
-bullet = ExtResource("8_ul6e3")
-base_bullets_per_sec = 3.0
-
-[node name="pattern" type="Node2D" parent="lich_behaviour_2/bullet_emitter_last_wish"]
-script = ExtResource("9_iyvd6")
-
-[node name="orbiter" type="Node2D" parent="lich_behaviour_2"]
-script = ExtResource("10_xsovb")
-
-[node name="bullet_emitter_seeker" type="Node2D" parent="lich_behaviour_2/orbiter"]
-script = ExtResource("3_g3mce")
-bullet = ExtResource("10_g3mce")
-base_bullets_per_sec = 10.0
-
-[node name="pattern" type="Node2D" parent="lich_behaviour_2/orbiter/bullet_emitter_seeker"]
-script = ExtResource("10_m3pee")
 
 [node name="sprite" type="Sprite2D" parent="."]
 texture_filter = 1

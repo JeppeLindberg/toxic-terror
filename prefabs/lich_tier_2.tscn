@@ -1,0 +1,58 @@
+[gd_scene load_steps=13 format=3 uid="uid://dhbmmmi0v018q"]
+
+[ext_resource type="Script" uid="uid://043iv0jd846f" path="res://scripts/behaviour.gd" id="1_bymav"]
+[ext_resource type="Script" uid="uid://d0c8pwxwabi75" path="res://scripts/tier.gd" id="1_jue7s"]
+[ext_resource type="Script" uid="uid://bvgwp2okbuhhe" path="res://scripts/bullet_emitter.gd" id="2_jue7s"]
+[ext_resource type="PackedScene" uid="uid://cif7oja1cf8tc" path="res://prefabs/bullet_lich_direct.tscn" id="3_aln3n"]
+[ext_resource type="Script" uid="uid://fmco0mxfx7t2" path="res://scripts/pattern_lich_1.gd" id="4_ssuyx"]
+[ext_resource type="Script" uid="uid://bcau0eex44e5i" path="res://scripts/array_copier.gd" id="5_187hn"]
+[ext_resource type="PackedScene" uid="uid://ywe41eorqc0j" path="res://prefabs/bullet_emitter_snowfall.tscn" id="6_td8d6"]
+[ext_resource type="PackedScene" uid="uid://bbv84r70kvc2s" path="res://prefabs/bullet_lich_last_wish.tscn" id="7_rggy3"]
+[ext_resource type="Script" uid="uid://5rosrjpl8hxe" path="res://scripts/pattern_lich_2.gd" id="8_mrj2d"]
+[ext_resource type="Script" uid="uid://c8xc8dpkdmjmg" path="res://scripts/orbiter.gd" id="9_55fud"]
+[ext_resource type="PackedScene" uid="uid://ksmmvc4avw6e" path="res://prefabs/bullet_lich_seeker.tscn" id="10_kv2y8"]
+[ext_resource type="Script" uid="uid://ca5crlgksiui8" path="res://scripts/pattern_lich_seeker.gd" id="11_d88lt"]
+
+[node name="tier_2" type="Node2D"]
+script = ExtResource("1_jue7s")
+
+[node name="lich_behaviour_1" type="Node2D" parent="."]
+script = ExtResource("1_bymav")
+
+[node name="bullet_emitter_direct" type="Node2D" parent="lich_behaviour_1"]
+script = ExtResource("2_jue7s")
+bullet = ExtResource("3_aln3n")
+x_follow_player = true
+
+[node name="pattern" type="Node2D" parent="lich_behaviour_1/bullet_emitter_direct"]
+script = ExtResource("4_ssuyx")
+
+[node name="snowfall_emitters" type="Node2D" parent="lich_behaviour_1"]
+position = Vector2(0, -177)
+script = ExtResource("5_187hn")
+packed_scene = ExtResource("6_td8d6")
+count = 30
+
+[node name="lich_behaviour_2" type="Node2D" parent="."]
+script = ExtResource("1_bymav")
+activate_at_dec = 0.3
+damage_taken_dec = 0.3
+
+[node name="bullet_emitter_last_wish" type="Node2D" parent="lich_behaviour_2"]
+script = ExtResource("2_jue7s")
+bullet = ExtResource("7_rggy3")
+base_bullets_per_sec = 3.0
+
+[node name="pattern" type="Node2D" parent="lich_behaviour_2/bullet_emitter_last_wish"]
+script = ExtResource("8_mrj2d")
+
+[node name="orbiter" type="Node2D" parent="lich_behaviour_2"]
+script = ExtResource("9_55fud")
+
+[node name="bullet_emitter_seeker" type="Node2D" parent="lich_behaviour_2/orbiter"]
+script = ExtResource("2_jue7s")
+bullet = ExtResource("10_kv2y8")
+base_bullets_per_sec = 10.0
+
+[node name="pattern" type="Node2D" parent="lich_behaviour_2/orbiter/bullet_emitter_seeker"]
+script = ExtResource("11_d88lt")

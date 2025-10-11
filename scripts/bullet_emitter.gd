@@ -4,6 +4,7 @@ extends Node2D
 @onready var pattern = get_node_or_null('pattern')
 @onready var main = get_node('/root/main')
 @onready var player = get_node('/root/main/player')
+@onready var manager = get_node('/root/main/manager')
 
 @export var bullet: PackedScene
 @export var base_bullets_per_sec = 5.0
@@ -79,7 +80,10 @@ func _process(delta: float) -> void:
 	if scale_bullets_per_sec_w_damage_taken:
 		calc_bullets_per_sec *= 1.0 - scale_bullets_per_sec_w_damage_taken_node.current_health_dec
 
-	if emit == false:
+	if not manager.simulate:
+		return
+
+	if not emit:
 		time_charge = base_charge_dec * (1.0 / calc_bullets_per_sec)
 		return
 

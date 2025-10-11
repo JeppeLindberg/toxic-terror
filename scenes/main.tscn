@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://08tcbi0rlywr"]
+[gd_scene load_steps=36 format=3 uid="uid://08tcbi0rlywr"]
 
 [ext_resource type="Texture2D" uid="uid://6uvykki1lldt" path="res://sprites/dog.png" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://mj5rryc047c7" path="res://scripts/player.gd" id="1_sugp2"]
@@ -20,6 +20,23 @@
 [ext_resource type="Script" uid="uid://bu2oy126oeco4" path="res://scripts/pattern_player_narrow.gd" id="15_yc10j"]
 [ext_resource type="Script" uid="uid://d2nif65d6fvwf" path="res://scripts/ui.gd" id="17_dp3eg"]
 [ext_resource type="Script" uid="uid://c416j0e44w7a7" path="res://scripts/enemy_health.gd" id="17_muem4"]
+[ext_resource type="Script" uid="uid://d1toqyalpknij" path="res://scripts/dialog.gd" id="21_jscy8"]
+[ext_resource type="Script" uid="uid://5jrj21aaky1v" path="res://scripts/richtext.gd" id="22_pm3ni"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gqmmt"]
+friction = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gqmmt"]
+size = Vector2(357, 1516)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yc10j"]
+size = Vector2(357, 1516)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jscy8"]
+size = Vector2(1833, 394)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pm3ni"]
+size = Vector2(1833, 394)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jyhfs"]
 radius = 2.0
@@ -34,39 +51,68 @@ radius = 65.0692
 radius = 27.0185
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jkv2x"]
-radius = 82.0975
+radius = 97.0052
 
 [sub_resource type="Theme" id="Theme_jbj1t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_muem4"]
 bg_color = Color(1, 1, 1, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gqmmt"]
+bg_color = Color(0.6, 0.6, 0.6, 0.403922)
+
 [node name="main" type="Node2D"]
 script = ExtResource("1_tbgi4")
 
-[node name="manager" type="Node2D" parent="." node_paths=PackedStringArray("enemy_spawn_pos")]
+[node name="manager" type="Node2D" parent="." node_paths=PackedStringArray("enemy_spawn_pos", "dialog")]
 script = ExtResource("2_0ld40")
 enemy_spawn_pos = NodePath("../camera_pivot/enemy_spawn_pos")
+dialog = NodePath("../ui/ui/dialog")
 lich_1_prefab = ExtResource("3_0ld40")
 
-[node name="camera_pivot" type="Node2D" parent="."]
+[node name="camera_pivot" type="AnimatableBody2D" parent="."]
+collision_layer = 32
+collision_mask = 32
+physics_material_override = SubResource("PhysicsMaterial_gqmmt")
 script = ExtResource("2_tefeu")
 
 [node name="enemy_spawn_pos" type="Node2D" parent="camera_pivot"]
-position = Vector2(0, -337)
+position = Vector2(0, -285)
 
 [node name="enemy_pos_1" type="Node2D" parent="camera_pivot"]
-position = Vector2(-205, -343)
+position = Vector2(-205, -291)
 
 [node name="enemy_pos_2" type="Node2D" parent="camera_pivot"]
-position = Vector2(206, -340)
+position = Vector2(206, -288)
+
+[node name="player_spawn_pos" type="Node2D" parent="camera_pivot"]
+position = Vector2(0, 159)
 
 [node name="camera" type="Camera2D" parent="camera_pivot"]
 
+[node name="box" type="CollisionShape2D" parent="camera_pivot"]
+position = Vector2(-527.5, 0)
+shape = SubResource("RectangleShape2D_gqmmt")
+
+[node name="box2" type="CollisionShape2D" parent="camera_pivot"]
+position = Vector2(527.5, 0)
+shape = SubResource("RectangleShape2D_yc10j")
+
+[node name="box3" type="CollisionShape2D" parent="camera_pivot"]
+position = Vector2(0, -635)
+shape = SubResource("RectangleShape2D_jscy8")
+
+[node name="box4" type="CollisionShape2D" parent="camera_pivot"]
+position = Vector2(0, 634)
+shape = SubResource("RectangleShape2D_pm3ni")
+
 [node name="player" type="RigidBody2D" parent="."]
+z_index = 100
 position = Vector2(107, 0)
-collision_mask = 0
+collision_layer = 33
+collision_mask = 32
 gravity_scale = 0.0
+lock_rotation = true
 script = ExtResource("1_sugp2")
 sit_prefab = ExtResource("2_a8y0u")
 good_boy_prefab = ExtResource("10_jkv2x")
@@ -197,7 +243,7 @@ offset_right = 20.0
 offset_bottom = 40.0
 grow_horizontal = 2
 theme_override_constants/margin_left = 30
-theme_override_constants/margin_top = 30
+theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 30
 script = ExtResource("17_muem4")
@@ -221,5 +267,64 @@ offset_bottom = 15.0
 grow_vertical = 2
 theme = SubResource("Theme_jbj1t")
 theme_override_styles/panel = SubResource("StyleBoxFlat_muem4")
+
+[node name="dialog" type="MarginContainer" parent="ui/ui" node_paths=PackedStringArray("text_panel", "text", "speaker_text")]
+custom_minimum_size = Vector2(800, 200)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+script = ExtResource("21_jscy8")
+text_panel = NodePath("panel")
+text = NodePath("panel/text_margin/textbox")
+speaker_text = NodePath("panel/speaker_margin/speaker")
+
+[node name="panel" type="Panel" parent="ui/ui/dialog"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gqmmt")
+
+[node name="speaker_margin" type="MarginContainer" parent="ui/ui/dialog/panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 30.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 200
+
+[node name="speaker" type="RichTextLabel" parent="ui/ui/dialog/panel/speaker_margin"]
+layout_mode = 2
+bbcode_enabled = true
+text = "LICH"
+vertical_alignment = 1
+script = ExtResource("22_pm3ni")
+
+[node name="text_margin" type="MarginContainer" parent="ui/ui/dialog/panel"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="textbox" type="RichTextLabel" parent="ui/ui/dialog/panel/text_margin"]
+layout_mode = 2
+bbcode_enabled = true
+text = "ASD"
+vertical_alignment = 1
+script = ExtResource("22_pm3ni")
 
 [connection signal="timeout" from="player/damage_taken_timer" to="player" method="_on_damage_taken_timer_timeout"]
