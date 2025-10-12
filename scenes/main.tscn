@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://08tcbi0rlywr"]
+[gd_scene load_steps=41 format=3 uid="uid://08tcbi0rlywr"]
 
 [ext_resource type="Texture2D" uid="uid://6uvykki1lldt" path="res://sprites/dog.png" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://mj5rryc047c7" path="res://scripts/player.gd" id="1_sugp2"]
@@ -6,8 +6,13 @@
 [ext_resource type="Script" uid="uid://dyimu4htgkla" path="res://scripts/manager.gd" id="2_0ld40"]
 [ext_resource type="PackedScene" uid="uid://b78dlredjpcxm" path="res://prefabs/sit.tscn" id="2_a8y0u"]
 [ext_resource type="Script" uid="uid://dd6y615h01e4g" path="res://scripts/camera_pivot.gd" id="2_tefeu"]
+[ext_resource type="Texture2D" uid="uid://cypybmyywlg0" path="res://sprites/wall.png" id="2_vxglm"]
 [ext_resource type="PackedScene" uid="uid://b6626f0ja7eqp" path="res://prefabs/enemy_lich_1.tscn" id="3_0ld40"]
 [ext_resource type="Script" uid="uid://bliqtt0vluaog" path="res://scripts/dog.gd" id="3_jyhfs"]
+[ext_resource type="Script" uid="uid://waakrjkxqugk" path="res://scripts/sprite_repeater.gd" id="4_og1vs"]
+[ext_resource type="PackedScene" uid="uid://csie28gmh1vj3" path="res://prefabs/sprite_tiles.tscn" id="5_og1vs"]
+[ext_resource type="PackedScene" uid="uid://dromegv3dgvsh" path="res://prefabs/sprite_wall_1.tscn" id="6_2wyq8"]
+[ext_resource type="PackedScene" uid="uid://6ouluuwdlrln" path="res://prefabs/sprite_wall_2.tscn" id="6_og1vs"]
 [ext_resource type="Script" uid="uid://bvgwp2okbuhhe" path="res://scripts/bullet_emitter.gd" id="6_tipki"]
 [ext_resource type="PackedScene" uid="uid://d17rg63p8cs3f" path="res://prefabs/player_bullet.tscn" id="7_85g3d"]
 [ext_resource type="Script" uid="uid://d3i6m57vhi8q" path="res://scripts/pattern_player_wide.gd" id="8_choun"]
@@ -64,11 +69,35 @@ bg_color = Color(0.6, 0.6, 0.6, 0.403922)
 [node name="main" type="Node2D"]
 script = ExtResource("1_tbgi4")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-365, 0)
+texture = ExtResource("2_vxglm")
+
 [node name="manager" type="Node2D" parent="." node_paths=PackedStringArray("enemy_spawn_pos", "dialog")]
 script = ExtResource("2_0ld40")
 enemy_spawn_pos = NodePath("../camera_pivot/enemy_spawn_pos")
 dialog = NodePath("../ui/ui/dialog")
 lich_1_prefab = ExtResource("3_0ld40")
+
+[node name="tiles_repeater" type="Node2D" parent="." node_paths=PackedStringArray("track_node")]
+script = ExtResource("4_og1vs")
+sprite = ExtResource("5_og1vs")
+sprite_size_y = 420
+sprite_count = 10
+track_node = NodePath("../camera_pivot")
+
+[node name="wall_1_repeater" type="Node2D" parent="." node_paths=PackedStringArray("track_node")]
+position = Vector2(-365, 0)
+script = ExtResource("4_og1vs")
+sprite = ExtResource("6_2wyq8")
+track_node = NodePath("../camera_pivot")
+
+[node name="wall_2_repeater" type="Node2D" parent="." node_paths=PackedStringArray("track_node")]
+position = Vector2(365, 0)
+script = ExtResource("4_og1vs")
+sprite = ExtResource("6_og1vs")
+track_node = NodePath("../camera_pivot")
 
 [node name="camera_pivot" type="AnimatableBody2D" parent="."]
 collision_layer = 32
@@ -91,11 +120,11 @@ position = Vector2(0, 159)
 [node name="camera" type="Camera2D" parent="camera_pivot"]
 
 [node name="box" type="CollisionShape2D" parent="camera_pivot"]
-position = Vector2(-527.5, 0)
+position = Vector2(-528.5, 0)
 shape = SubResource("RectangleShape2D_gqmmt")
 
 [node name="box2" type="CollisionShape2D" parent="camera_pivot"]
-position = Vector2(527.5, 0)
+position = Vector2(528.5, 0)
 shape = SubResource("RectangleShape2D_yc10j")
 
 [node name="box3" type="CollisionShape2D" parent="camera_pivot"]

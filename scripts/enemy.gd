@@ -92,6 +92,3 @@ func hit(damage = 1.0):
 	
 	if _current_health <= 0.0:
 		health_depleted.emit()
-
-
-

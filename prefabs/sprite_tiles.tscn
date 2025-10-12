@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://csie28gmh1vj3"]
+
+[ext_resource type="Texture2D" uid="uid://be0uw1vjsb0e5" path="res://sprites/tiles.png" id="1_mwo8r"]
+
+[node name="tiles" type="Sprite2D"]
+texture_filter = 1
+texture = ExtResource("1_mwo8r")
