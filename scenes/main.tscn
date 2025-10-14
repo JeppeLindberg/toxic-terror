@@ -1,6 +1,5 @@
-[gd_scene load_steps=41 format=3 uid="uid://08tcbi0rlywr"]
+[gd_scene load_steps=51 format=3 uid="uid://08tcbi0rlywr"]
 
-[ext_resource type="Texture2D" uid="uid://6uvykki1lldt" path="res://sprites/dog.png" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://mj5rryc047c7" path="res://scripts/player.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://cg4h8dfhcecue" path="res://scripts/main.gd" id="1_tbgi4"]
 [ext_resource type="Script" uid="uid://dyimu4htgkla" path="res://scripts/manager.gd" id="2_0ld40"]
@@ -27,6 +26,8 @@
 [ext_resource type="Script" uid="uid://c416j0e44w7a7" path="res://scripts/enemy_health.gd" id="17_muem4"]
 [ext_resource type="Script" uid="uid://d1toqyalpknij" path="res://scripts/dialog.gd" id="21_jscy8"]
 [ext_resource type="Script" uid="uid://5jrj21aaky1v" path="res://scripts/richtext.gd" id="22_pm3ni"]
+[ext_resource type="Texture2D" uid="uid://c1x058ge8g0h6" path="res://sprites/dog_idle.png" id="22_vxglm"]
+[ext_resource type="Texture2D" uid="uid://btjuo4imics5n" path="res://sprites/dog_sit.png" id="23_2f3dj"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gqmmt"]
 friction = 0.0
@@ -48,6 +49,75 @@ radius = 2.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_og1vs"]
 radius = 860.001
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2f3dj"]
+atlas = ExtResource("22_vxglm")
+region = Rect2(0, 0, 118, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yq6so"]
+atlas = ExtResource("22_vxglm")
+region = Rect2(118, 0, 118, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fv21b"]
+atlas = ExtResource("22_vxglm")
+region = Rect2(236, 0, 118, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tel4y"]
+atlas = ExtResource("22_vxglm")
+region = Rect2(354, 0, 118, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkpxi"]
+atlas = ExtResource("23_2f3dj")
+region = Rect2(0, 0, 128, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5q0nq"]
+atlas = ExtResource("23_2f3dj")
+region = Rect2(128, 0, 128, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dgi5k"]
+atlas = ExtResource("23_2f3dj")
+region = Rect2(256, 0, 128, 132)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8jky"]
+atlas = ExtResource("23_2f3dj")
+region = Rect2(384, 0, 128, 132)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qkpxi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2f3dj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yq6so")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fv21b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tel4y")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkpxi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5q0nq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dgi5k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8jky")
+}],
+"loop": true,
+"name": &"sit",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tefeu"]
 radius = 65.0692
@@ -216,9 +286,12 @@ script = ExtResource("3_jyhfs")
 movement_speed = 400.0
 player_layer = 1
 
-[node name="sprite" type="Sprite2D" parent="dog"]
+[node name="sprite" type="AnimatedSprite2D" parent="dog"]
 texture_filter = 1
-texture = ExtResource("1_o5qli")
+sprite_frames = SubResource("SpriteFrames_qkpxi")
+animation = &"sit"
+autoplay = "idle"
+frame_progress = 0.604493
 
 [node name="detect_player_shape" type="CollisionShape2D" parent="dog"]
 shape = SubResource("CircleShape2D_tefeu")
