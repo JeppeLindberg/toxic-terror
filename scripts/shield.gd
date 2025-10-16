@@ -7,10 +7,12 @@ var max_size
 @export var seconds_to_grow_to_max = 1.0
 
 @onready var shield_collider = get_node('shield_collider')
+@onready var sprite = get_node('sprite')
 
 
 func _ready() -> void:
 	max_size = shield_collider.shape.radius
+	shield_collider.shape.radius = 0
 
 
 func _process(delta: float) -> void:
@@ -27,10 +29,11 @@ func _process(delta: float) -> void:
 			shield_collider.shape.radius -= (1.0/seconds_to_grow_to_max) * max_size * delta
 	
 	shield_collider.disabled = shield_collider.shape.radius == 0
+	sprite.target_radius_px = shield_collider.shape.radius
+	sprite.visible = shield_collider.shape.radius != 0
 
 
 
 
 func hit():
 	pass
-

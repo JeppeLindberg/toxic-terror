@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://08tcbi0rlywr"]
+[gd_scene load_steps=54 format=3 uid="uid://08tcbi0rlywr"]
 
 [ext_resource type="Script" uid="uid://mj5rryc047c7" path="res://scripts/player.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://cg4h8dfhcecue" path="res://scripts/main.gd" id="1_tbgi4"]
@@ -25,9 +25,12 @@
 [ext_resource type="Script" uid="uid://d2nif65d6fvwf" path="res://scripts/ui.gd" id="17_dp3eg"]
 [ext_resource type="Script" uid="uid://c416j0e44w7a7" path="res://scripts/enemy_health.gd" id="17_muem4"]
 [ext_resource type="Script" uid="uid://d1toqyalpknij" path="res://scripts/dialog.gd" id="21_jscy8"]
+[ext_resource type="Texture2D" uid="uid://d27hxcau72sad" path="res://sprites/big_circle_player.png" id="21_tel4y"]
 [ext_resource type="Script" uid="uid://5jrj21aaky1v" path="res://scripts/richtext.gd" id="22_pm3ni"]
 [ext_resource type="Texture2D" uid="uid://c1x058ge8g0h6" path="res://sprites/dog_idle.png" id="22_vxglm"]
 [ext_resource type="Texture2D" uid="uid://btjuo4imics5n" path="res://sprites/dog_sit.png" id="23_2f3dj"]
+[ext_resource type="Texture2D" uid="uid://denayw2atxswm" path="res://sprites/big_circle.png" id="24_fv21b"]
+[ext_resource type="Script" uid="uid://dximhmyaq8in3" path="res://scripts/big_circle_sprite.gd" id="25_tel4y"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gqmmt"]
 friction = 0.0
@@ -278,6 +281,12 @@ seconds_to_grow_to_max = 3.0
 shape = SubResource("CircleShape2D_og1vs")
 disabled = true
 
+[node name="sprite" type="Sprite2D" parent="player/all_shield"]
+visible = false
+modulate = Color(0.294118, 0.501961, 0.792157, 0.388235)
+texture = ExtResource("21_tel4y")
+script = ExtResource("25_tel4y")
+
 [node name="dog" type="RigidBody2D" parent="." node_paths=PackedStringArray("sprite")]
 collision_layer = 5
 collision_mask = 4
@@ -310,6 +319,12 @@ script = ExtResource("15_jbj1t")
 [node name="shield_collider" type="CollisionShape2D" parent="dog/shield"]
 shape = SubResource("CircleShape2D_jkv2x")
 disabled = true
+
+[node name="sprite" type="Sprite2D" parent="dog/shield"]
+self_modulate = Color(0.294118, 0.501961, 0.792157, 0.388235)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("24_fv21b")
+script = ExtResource("25_tel4y")
 
 [node name="bullets" type="Node2D" parent="."]
 
