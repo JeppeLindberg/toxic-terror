@@ -27,56 +27,56 @@ var simulate = true
 		'speaker': 'Lich',
 		'text': 'Well well well.'
 	},
-	{
-		'type': 'dialog',
-		'speaker': 'Lich',
-		'text': 'You have chosen your opponents poorly, little magician!'
-	},
-	{
-		'type': 'dialog',
-		'speaker': 'Magician',
-		'text': 'Cerberus does not belong to you!'
-	},
-	{
-		'type': 'dialog',
-		'speaker': 'Lich',
-		'text': 'I stole it fair and square!'
-	},
-	{
-		'type': 'dialog',
-		'speaker': 'Lich',
-		'text': 'And besides'
-	},
-	{
-		'type': 'dialog',
-		'speaker': 'Lich',
-		'text': 'I have many more experiments to run on that runt.'
-	},
-	{
-		'type': 'dialog',
-		'speaker': 'Magician',
-		'text': 'I will not allow it! Cerberus is coming with me!'
-	},
-	{
-		'type': 'dialog',
-		'speaker': 'Lich',
-		'text': 'Do not force my hand!'
-	},
-	{
-		'type': 'dialog',
-		'speaker': 'Lich',
-		'text': 'You will hand Cerberus over, or die.'
-	},
-	{
-		'type': 'dialog',
-		'speaker': 'Magician',
-		'text': 'No chance!'
-	},
-	{
-		'type': 'dialog',
-		'speaker': 'Lich',
-		'text': 'So be it.'
-	},
+	# {
+	# 	'type': 'dialog',
+	# 	'speaker': 'Lich',
+	# 	'text': 'You have chosen your opponent poorly, little magician!'
+	# },
+	# {
+	# 	'type': 'dialog',
+	# 	'speaker': 'Magician',
+	# 	'text': 'Cerberus does not belong to you!'
+	# },
+	# {
+	# 	'type': 'dialog',
+	# 	'speaker': 'Lich',
+	# 	'text': 'I stole it fair and square!'
+	# },
+	# {
+	# 	'type': 'dialog',
+	# 	'speaker': 'Lich',
+	# 	'text': 'And besides'
+	# },
+	# {
+	# 	'type': 'dialog',
+	# 	'speaker': 'Lich',
+	# 	'text': 'I have many more experiments to run on that runt.'
+	# },
+	# {
+	# 	'type': 'dialog',
+	# 	'speaker': 'Magician',
+	# 	'text': 'I will not allow it! Cerberus is coming with me!'
+	# },
+	# {
+	# 	'type': 'dialog',
+	# 	'speaker': 'Lich',
+	# 	'text': 'Do not force my hand!'
+	# },
+	# {
+	# 	'type': 'dialog',
+	# 	'speaker': 'Lich',
+	# 	'text': 'You will hand Cerberus over, or die.'
+	# },
+	# {
+	# 	'type': 'dialog',
+	# 	'speaker': 'Magician',
+	# 	'text': 'No chance!'
+	# },
+	# {
+	# 	'type': 'dialog',
+	# 	'speaker': 'Lich',
+	# 	'text': 'So be it.'
+	# },
 	{
 		'type': 'dialog',
 		'speaker': 'TIP',

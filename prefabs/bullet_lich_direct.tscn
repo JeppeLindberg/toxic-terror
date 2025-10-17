@@ -6,9 +6,10 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_eb6dy"]
 radius = 12.0
 
-[node name="enemy_bullet_1" type="Node2D"]
+[node name="enemy_bullet_pellet" type="Node2D"]
 script = ExtResource("1_l67e3")
 target_layer = 17
+move_speed = 300.0
 
 [node name="sprite" type="Sprite2D" parent="."]
 modulate = Color(0.873722, 0.238019, 0.341468, 1)

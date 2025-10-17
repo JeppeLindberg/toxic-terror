@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://c03qfal3lf4xo"]
+[gd_scene load_steps=12 format=3 uid="uid://c03qfal3lf4xo"]
 
 [ext_resource type="Script" uid="uid://d0c8pwxwabi75" path="res://scripts/tier.gd" id="1_2vsr1"]
 [ext_resource type="Script" uid="uid://043iv0jd846f" path="res://scripts/behaviour.gd" id="2_131e8"]
 [ext_resource type="Script" uid="uid://bvgwp2okbuhhe" path="res://scripts/bullet_emitter.gd" id="3_1dkf0"]
 [ext_resource type="PackedScene" uid="uid://b65fv1ki3ciu0" path="res://prefabs/bullet_emitter_wave.tscn" id="4_cpj5x"]
+[ext_resource type="PackedScene" uid="uid://b8h67g2qja75j" path="res://prefabs/bullet_lich_roadhog.tscn" id="4_mthva"]
 [ext_resource type="Script" uid="uid://bcau0eex44e5i" path="res://scripts/array_copier.gd" id="6_8egbp"]
 [ext_resource type="PackedScene" uid="uid://bbv84r70kvc2s" path="res://prefabs/bullet_lich_last_wish.tscn" id="8_7sll1"]
 [ext_resource type="Script" uid="uid://5rosrjpl8hxe" path="res://scripts/pattern_lich_2.gd" id="9_3igat"]
@@ -16,6 +17,15 @@ script = ExtResource("1_2vsr1")
 
 [node name="lich_behaviour_1" type="Node2D" parent="."]
 script = ExtResource("2_131e8")
+
+[node name="bullet_emitter_roadhog" type="Node2D" parent="lich_behaviour_1"]
+script = ExtResource("3_1dkf0")
+bullet = ExtResource("4_mthva")
+base_bullets_per_sec = 0.3
+x_follow_player = true
+
+[node name="pattern" type="Node2D" parent="lich_behaviour_1/bullet_emitter_roadhog"]
+script = ExtResource("12_h4yvd")
 
 [node name="wave_emitters" type="Node2D" parent="lich_behaviour_1"]
 position = Vector2(0, -177)

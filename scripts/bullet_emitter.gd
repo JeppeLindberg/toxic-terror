@@ -80,10 +80,7 @@ func _process(delta: float) -> void:
 	if scale_bullets_per_sec_w_damage_taken:
 		calc_bullets_per_sec *= 1.0 - scale_bullets_per_sec_w_damage_taken_node.current_health_dec
 
-	if not manager.simulate:
-		return
-
-	if not emit:
+	if not manager.simulate or not emit:
 		time_charge = base_charge_dec * (1.0 / calc_bullets_per_sec)
 		return
 

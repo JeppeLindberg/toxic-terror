@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8h67g2qja75j"]
+
+[ext_resource type="Script" uid="uid://dkkw6sd1syv7x" path="res://scripts/bullet.gd" id="1_srio4"]
+[ext_resource type="Texture2D" uid="uid://c0il3jcguwea7" path="res://sprites/circle.png" id="2_fpiwe"]
+[ext_resource type="Script" uid="uid://b684hk17pb4tp" path="res://scripts/bullet_behaviour_roadhog.gd" id="3_fpiwe"]
+[ext_resource type="PackedScene" uid="uid://biwce6t6n7t02" path="res://prefabs/bullet_lich_pellet.tscn" id="4_j4b8w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eb6dy"]
+radius = 53.0377
+
+[node name="enemy_bullet_roadhog" type="Node2D"]
+script = ExtResource("1_srio4")
+target_layer = 17
+move_speed = 0.0
+max_lifetime = 30.0
+
+[node name="sprite" type="Sprite2D" parent="."]
+modulate = Color(0.873722, 0.238019, 0.341468, 1)
+scale = Vector2(1.05651, 1.05651)
+texture = ExtResource("2_fpiwe")
+
+[node name="shape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_eb6dy")
+disabled = true
+
+[node name="bullet_behaviour" type="Node2D" parent="."]
+script = ExtResource("3_fpiwe")
+pellet = ExtResource("4_j4b8w")
+
+[node name="Node2D9" type="Node2D" parent="bullet_behaviour"]
+position = Vector2(-27.5774, -27.577)
+
+[node name="Node2D10" type="Node2D" parent="bullet_behaviour"]
+position = Vector2(-39, 0.000259888)
+
+[node name="Node2D11" type="Node2D" parent="bullet_behaviour"]
+position = Vector2(-27.577, 27.5773)
+scale = Vector2(1, 1)
+
+[node name="Node2D12" type="Node2D" parent="bullet_behaviour"]
+position = Vector2(0.000173259, 39)
+
+[node name="Node2D13" type="Node2D" parent="bullet_behaviour"]
+position = Vector2(27.5773, 27.5771)
+
+[node name="Node2D14" type="Node2D" parent="bullet_behaviour"]
+position = Vector2(39, -8.66293e-05)
+
+[node name="Node2D15" type="Node2D" parent="bullet_behaviour"]
+position = Vector2(27.5771, -27.5772)
+
+[node name="Node2D16" type="Node2D" parent="bullet_behaviour"]
+position = Vector2(0, -39)

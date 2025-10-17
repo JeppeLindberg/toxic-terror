@@ -8,7 +8,8 @@
 rotation = 1.5708
 script = ExtResource("1_65ya3")
 bullet = ExtResource("2_65ya3")
-base_bullets_per_sec = 1.0
+base_bullets_per_sec = 0.5
+base_charge_dec = 1.0
 
 [node name="pattern" type="Node2D" parent="."]
 script = ExtResource("3_5so0s")
