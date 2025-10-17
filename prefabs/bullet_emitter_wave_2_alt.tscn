@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://h6bfmf6sxlns"]
+
+[ext_resource type="Script" uid="uid://bvgwp2okbuhhe" path="res://scripts/bullet_emitter.gd" id="1_qb4nt"]
+[ext_resource type="PackedScene" uid="uid://detnkbnaqafot" path="res://prefabs/bullet_lich_wave_2.tscn" id="2_midqx"]
+[ext_resource type="Script" uid="uid://3wtdags3jvn7" path="res://scripts/pattern_lich_showfall.gd" id="3_ask7b"]
+
+[node name="bullet_emitter_wave_2" type="Node2D"]
+rotation = 1.5708
+script = ExtResource("1_qb4nt")
+bullet = ExtResource("2_midqx")
+base_bullets_per_sec = 0.3
+base_charge_dec = 0.5
+
+[node name="pattern" type="Node2D" parent="."]
+script = ExtResource("3_ask7b")

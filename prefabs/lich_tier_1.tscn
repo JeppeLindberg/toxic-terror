@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c03qfal3lf4xo"]
+[gd_scene load_steps=10 format=3 uid="uid://c03qfal3lf4xo"]
 
 [ext_resource type="Script" uid="uid://d0c8pwxwabi75" path="res://scripts/tier.gd" id="1_2vsr1"]
 [ext_resource type="Script" uid="uid://043iv0jd846f" path="res://scripts/behaviour.gd" id="2_131e8"]
@@ -6,10 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://b65fv1ki3ciu0" path="res://prefabs/bullet_emitter_wave.tscn" id="4_cpj5x"]
 [ext_resource type="PackedScene" uid="uid://b8h67g2qja75j" path="res://prefabs/bullet_lich_roadhog.tscn" id="4_mthva"]
 [ext_resource type="Script" uid="uid://bcau0eex44e5i" path="res://scripts/array_copier.gd" id="6_8egbp"]
-[ext_resource type="PackedScene" uid="uid://bbv84r70kvc2s" path="res://prefabs/bullet_lich_last_wish.tscn" id="8_7sll1"]
-[ext_resource type="Script" uid="uid://5rosrjpl8hxe" path="res://scripts/pattern_lich_2.gd" id="9_3igat"]
-[ext_resource type="Script" uid="uid://c8xc8dpkdmjmg" path="res://scripts/orbiter.gd" id="10_4fexh"]
-[ext_resource type="PackedScene" uid="uid://ksmmvc4avw6e" path="res://prefabs/bullet_lich_seeker.tscn" id="11_s1mwp"]
+[ext_resource type="PackedScene" uid="uid://ed44xqawf5aq" path="res://prefabs/bullet_emitter_wave_2.tscn" id="8_34mkl"]
+[ext_resource type="PackedScene" uid="uid://h6bfmf6sxlns" path="res://prefabs/bullet_emitter_wave_2_alt.tscn" id="9_ksguw"]
 [ext_resource type="Script" uid="uid://ca5crlgksiui8" path="res://scripts/pattern_lich_seeker.gd" id="12_h4yvd"]
 
 [node name="tier_1" type="Node2D"]
@@ -39,21 +37,17 @@ script = ExtResource("2_131e8")
 activate_at_dec = 0.3
 damage_taken_dec = 0.3
 
-[node name="bullet_emitter_last_wish" type="Node2D" parent="lich_behaviour_2"]
-script = ExtResource("3_1dkf0")
-bullet = ExtResource("8_7sll1")
-base_bullets_per_sec = 3.0
+[node name="wave_emitters" type="Node2D" parent="lich_behaviour_2"]
+position = Vector2(0, -155)
+script = ExtResource("6_8egbp")
+packed_scene = ExtResource("8_34mkl")
+interval = 30.0
+count = 100
 
-[node name="pattern" type="Node2D" parent="lich_behaviour_2/bullet_emitter_last_wish"]
-script = ExtResource("9_3igat")
-
-[node name="orbiter" type="Node2D" parent="lich_behaviour_2"]
-script = ExtResource("10_4fexh")
-
-[node name="bullet_emitter_seeker" type="Node2D" parent="lich_behaviour_2/orbiter"]
-script = ExtResource("3_1dkf0")
-bullet = ExtResource("11_s1mwp")
-base_bullets_per_sec = 10.0
-
-[node name="pattern" type="Node2D" parent="lich_behaviour_2/orbiter/bullet_emitter_seeker"]
-script = ExtResource("12_h4yvd")
+[node name="wave_emitters2" type="Node2D" parent="lich_behaviour_2"]
+position = Vector2(0, 823)
+rotation = 3.14159
+script = ExtResource("6_8egbp")
+packed_scene = ExtResource("9_ksguw")
+interval = 30.0
+count = 100

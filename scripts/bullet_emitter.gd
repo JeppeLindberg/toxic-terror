@@ -37,7 +37,7 @@ func _ready() -> void:
 func _current_pattern():
 	var result = []
 	for p in _current_pattern_helper():
-		result.append(p.rotated(rotation))
+		result.append(p.rotated(global_rotation))
 	return result
 
 func _current_pattern_helper():

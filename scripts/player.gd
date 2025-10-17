@@ -56,19 +56,19 @@ func _process(_delta: float) -> void:
 func _physics_process(_delta):
 	handle_movement_controls()
 
-	if manager.simulate:
-		var modified_speed = movement_speed
-		if improve_accuracy:
-			modified_speed *= slow_mode_mult
+	# if manager.simulate:
+	var modified_speed = movement_speed
+	if improve_accuracy:
+		modified_speed *= slow_mode_mult
 
-		linear_velocity = movement_direction * modified_speed
+	linear_velocity = movement_direction * modified_speed
 	
-	if not manager.simulate:
-		var dist =  movement_speed * 10.0
-		if spawn_pos.global_position.distance_to(global_position) < dist:
-			linear_velocity = spawn_pos.global_position - global_position
-		else:
-			linear_velocity =( spawn_pos.global_position - global_position).normalized() * dist
+	# if not manager.simulate:
+	# 	var dist =  movement_speed * 10.0
+	# 	if spawn_pos.global_position.distance_to(global_position) < dist:
+	# 		linear_velocity = spawn_pos.global_position - global_position
+	# 	else:
+	# 		linear_velocity =( spawn_pos.global_position - global_position).normalized() * dist
 
 	
 func handle_movement_controls():
