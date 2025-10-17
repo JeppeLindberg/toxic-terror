@@ -129,7 +129,7 @@ radius = 65.0692
 radius = 27.0185
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jkv2x"]
-radius = 97.0052
+radius = 125.016
 
 [sub_resource type="Theme" id="Theme_jbj1t"]
 
@@ -149,6 +149,7 @@ texture = ExtResource("2_vxglm")
 
 [node name="manager" type="Node2D" parent="." node_paths=PackedStringArray("enemy_spawn_pos", "dialog")]
 script = ExtResource("2_0ld40")
+debug_mode = true
 enemy_spawn_pos = NodePath("../camera_pivot/enemy_spawn_pos")
 dialog = NodePath("../ui/ui/dialog")
 lich_1_prefab = ExtResource("3_0ld40")

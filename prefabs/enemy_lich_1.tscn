@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6626f0ja7eqp"]
+[gd_scene load_steps=6 format=3 uid="uid://b6626f0ja7eqp"]
 
 [ext_resource type="Script" uid="uid://ca44ikmyfpltn" path="res://scripts/enemy.gd" id="1_75jj7"]
 [ext_resource type="PackedScene" uid="uid://dhbmmmi0v018q" path="res://prefabs/lich_tier_2.tscn" id="2_t2q5h"]
+[ext_resource type="PackedScene" uid="uid://c03qfal3lf4xo" path="res://prefabs/lich_tier_1.tscn" id="2_vgyoq"]
 [ext_resource type="Texture2D" uid="uid://umnq2in8e2tw" path="res://sprites/lich.png" id="13_xsovb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_choun"]
@@ -11,9 +12,11 @@ radius = 60.075
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_75jj7")
+tier_1 = ExtResource("2_vgyoq")
 tier_2 = ExtResource("2_t2q5h")
 move_speed = 40.0
 max_health = 150.0
+current_tier = 1
 
 [node name="sprite" type="Sprite2D" parent="."]
 texture_filter = 1

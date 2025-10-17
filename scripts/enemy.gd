@@ -10,6 +10,7 @@ extends Area2D
 var target_pos_node = null
 var initialized = false
 
+@export var tier_1: PackedScene
 @export var tier_2: PackedScene
 @export var move_speed = 20.0
 @export var max_health = 100.0
@@ -69,6 +70,8 @@ func activate_tier():
 		child.queue_free()
 	
 	var new_tier = null
+	if current_tier == 1:
+		new_tier = tier_1.instantiate()
 	if current_tier == 2:
 		new_tier = tier_2.instantiate()
 	add_child(new_tier)

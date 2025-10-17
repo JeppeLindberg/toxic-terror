@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://udlltg54c3yo"]
+
+[ext_resource type="Script" uid="uid://dkkw6sd1syv7x" path="res://scripts/bullet.gd" id="1_vrd5q"]
+[ext_resource type="Texture2D" uid="uid://c0il3jcguwea7" path="res://sprites/circle.png" id="2_ag1by"]
+[ext_resource type="Script" uid="uid://vaaxjydt2hpr" path="res://scripts/bullet_behavour_wave.gd" id="3_vrd5q"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eb6dy"]
+radius = 12.0
+
+[node name="enemy_bullet_wave" type="Node2D"]
+script = ExtResource("1_vrd5q")
+target_layer = 9
+move_speed = 150.0
+max_lifetime = 12.0
+
+[node name="sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.237959, 0.237959)
+texture = ExtResource("2_ag1by")
+
+[node name="shape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_eb6dy")
+disabled = true
+
+[node name="bullet_behaviour" type="Node2D" parent="."]
+script = ExtResource("3_vrd5q")
+speed = 70.0
