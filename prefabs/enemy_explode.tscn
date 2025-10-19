@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://qo1p88elcv7b"]
+
+[ext_resource type="Script" uid="uid://buscg14txmkna" path="res://scripts/enemy_explode.gd" id="1_5jwbv"]
+[ext_resource type="Script" uid="uid://bvgwp2okbuhhe" path="res://scripts/bullet_emitter.gd" id="1_nwkyd"]
+[ext_resource type="PackedScene" uid="uid://b07ku7y7nadk5" path="res://prefabs/bullet_enemy_explode_1.tscn" id="2_nwkyd"]
+[ext_resource type="PackedScene" uid="uid://bc1b3ejns3e07" path="res://prefabs/bullet_enemy_explode_2.tscn" id="4_bbw0w"]
+[ext_resource type="Script" uid="uid://dearbcnlcuull" path="res://scripts/pattern_enemy_explode_1.gd" id="4_eujpx"]
+[ext_resource type="Script" uid="uid://cdiwfvcoanjny" path="res://scripts/pattern_enemy_explode_2.gd" id="6_p41u3"]
+
+[node name="enemy_explode" type="Node2D" node_paths=PackedStringArray("emitters")]
+script = ExtResource("1_5jwbv")
+emitters = [NodePath("bullet_emitter_enemy_explode_1"), NodePath("bullet_emitter_enemy_explode_2")]
+
+[node name="bullet_emitter_enemy_explode_1" type="Node2D" parent="."]
+script = ExtResource("1_nwkyd")
+bullet = ExtResource("2_nwkyd")
+base_bullets_per_sec = 10.0
+base_charge_dec = 1.0
+emit = true
+ignore_simulate = true
+
+[node name="pattern" type="Node2D" parent="bullet_emitter_enemy_explode_1"]
+script = ExtResource("4_eujpx")
+
+[node name="bullet_emitter_enemy_explode_2" type="Node2D" parent="."]
+script = ExtResource("1_nwkyd")
+bullet = ExtResource("4_bbw0w")
+base_bullets_per_sec = 10.0
+base_charge_dec = 0.5
+emit = true
+ignore_simulate = true
+
+[node name="pattern" type="Node2D" parent="bullet_emitter_enemy_explode_2"]
+script = ExtResource("6_p41u3")

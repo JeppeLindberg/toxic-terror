@@ -1,5 +1,7 @@
 extends Node2D
 
+@export var debug_mode = false
+
 @onready var bullets = get_node('/root/main/bullets')
 @onready var pattern = get_node_or_null('pattern')
 @onready var main = get_node('/root/main')
@@ -16,7 +18,9 @@ var scale_bullets_per_sec_w_damage_taken_node = null
 
 var time_charge = 0.0
 var index = 0
-var emit = false
+@export var emit = false
+@export var ignore_simulate = false
+var no_emitted = 0
 
 
 func _ready() -> void:
@@ -33,6 +37,8 @@ func _ready() -> void:
 				return
 
 		scale_bullets_per_sec_w_damage_taken_node = node
+
+	time_charge = base_charge_dec * (1.0 / _bullets_per_sec)
 
 func _current_pattern():
 	var result = []
@@ -80,7 +86,7 @@ func _process(delta: float) -> void:
 	if scale_bullets_per_sec_w_damage_taken:
 		calc_bullets_per_sec *= 1.0 - scale_bullets_per_sec_w_damage_taken_node.current_health_dec
 
-	if not manager.simulate or not emit:
+	if not (manager.simulate or ignore_simulate) or not emit:
 		time_charge = base_charge_dec * (1.0 / calc_bullets_per_sec)
 		return
 
@@ -96,5 +102,6 @@ func _process(delta: float) -> void:
 			new_bullet.time_charge = time_charge
 			new_bullet.direction = p.normalized()
 			new_bullet.move()
+			no_emitted += 1
 
 		index += 1

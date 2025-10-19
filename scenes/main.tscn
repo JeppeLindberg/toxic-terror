@@ -1,11 +1,10 @@
-[gd_scene load_steps=54 format=3 uid="uid://08tcbi0rlywr"]
+[gd_scene load_steps=58 format=3 uid="uid://08tcbi0rlywr"]
 
 [ext_resource type="Script" uid="uid://mj5rryc047c7" path="res://scripts/player.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://cg4h8dfhcecue" path="res://scripts/main.gd" id="1_tbgi4"]
 [ext_resource type="Script" uid="uid://dyimu4htgkla" path="res://scripts/manager.gd" id="2_0ld40"]
 [ext_resource type="PackedScene" uid="uid://b78dlredjpcxm" path="res://prefabs/sit.tscn" id="2_a8y0u"]
 [ext_resource type="Script" uid="uid://dd6y615h01e4g" path="res://scripts/camera_pivot.gd" id="2_tefeu"]
-[ext_resource type="Texture2D" uid="uid://cypybmyywlg0" path="res://sprites/wall.png" id="2_vxglm"]
 [ext_resource type="PackedScene" uid="uid://b6626f0ja7eqp" path="res://prefabs/enemy_lich_1.tscn" id="3_0ld40"]
 [ext_resource type="Script" uid="uid://bliqtt0vluaog" path="res://scripts/dog.gd" id="3_jyhfs"]
 [ext_resource type="Script" uid="uid://waakrjkxqugk" path="res://scripts/sprite_repeater.gd" id="4_og1vs"]
@@ -14,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://6ouluuwdlrln" path="res://prefabs/sprite_wall_2.tscn" id="6_og1vs"]
 [ext_resource type="Script" uid="uid://bvgwp2okbuhhe" path="res://scripts/bullet_emitter.gd" id="6_tipki"]
 [ext_resource type="PackedScene" uid="uid://d17rg63p8cs3f" path="res://prefabs/player_bullet.tscn" id="7_85g3d"]
+[ext_resource type="Script" uid="uid://byp1l2wjvoy7c" path="res://scripts/box.gd" id="7_tel4y"]
 [ext_resource type="Script" uid="uid://d3i6m57vhi8q" path="res://scripts/pattern_player_wide.gd" id="8_choun"]
 [ext_resource type="PackedScene" uid="uid://bohy668s4xdpv" path="res://prefabs/good_boy.tscn" id="10_jkv2x"]
 [ext_resource type="Script" uid="uid://c71naeidgp1k6" path="res://scripts/debug.gd" id="13_trceg"]
@@ -31,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://btjuo4imics5n" path="res://sprites/dog_sit.png" id="23_2f3dj"]
 [ext_resource type="Texture2D" uid="uid://denayw2atxswm" path="res://sprites/big_circle.png" id="24_fv21b"]
 [ext_resource type="Script" uid="uid://dximhmyaq8in3" path="res://scripts/big_circle_sprite.gd" id="25_tel4y"]
+[ext_resource type="Script" uid="uid://c78uw725wonv5" path="res://scripts/postgame.gd" id="30_qkpxi"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gqmmt"]
 friction = 0.0
@@ -139,20 +140,17 @@ bg_color = Color(1, 1, 1, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gqmmt"]
 bg_color = Color(0.6, 0.6, 0.6, 0.403922)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tel4y"]
+bg_color = Color(0.129412, 0.129412, 0.137255, 1)
+
+[sub_resource type="Theme" id="Theme_tel4y"]
+default_font_size = 50
+
+[sub_resource type="Theme" id="Theme_qkpxi"]
+default_font_size = 30
+
 [node name="main" type="Node2D"]
 script = ExtResource("1_tbgi4")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(-365, 0)
-texture = ExtResource("2_vxglm")
-
-[node name="manager" type="Node2D" parent="." node_paths=PackedStringArray("enemy_spawn_pos", "dialog")]
-script = ExtResource("2_0ld40")
-debug_mode = true
-enemy_spawn_pos = NodePath("../camera_pivot/enemy_spawn_pos")
-dialog = NodePath("../ui/ui/dialog")
-lich_1_prefab = ExtResource("3_0ld40")
 
 [node name="tiles_repeater" type="Node2D" parent="." node_paths=PackedStringArray("track_node")]
 script = ExtResource("4_og1vs")
@@ -191,25 +189,32 @@ position = Vector2(206, -288)
 [node name="player_spawn_pos" type="Node2D" parent="camera_pivot"]
 position = Vector2(0, 159)
 
+[node name="player_fade_out_pos" type="Node2D" parent="camera_pivot"]
+position = Vector2(0, -1193)
+
 [node name="camera" type="Camera2D" parent="camera_pivot"]
 
 [node name="box" type="CollisionShape2D" parent="camera_pivot"]
 position = Vector2(-528.5, 0)
 shape = SubResource("RectangleShape2D_gqmmt")
+script = ExtResource("7_tel4y")
 
 [node name="box2" type="CollisionShape2D" parent="camera_pivot"]
 position = Vector2(528.5, 0)
 shape = SubResource("RectangleShape2D_yc10j")
+script = ExtResource("7_tel4y")
 
 [node name="box3" type="CollisionShape2D" parent="camera_pivot"]
 position = Vector2(0, -635)
 shape = SubResource("RectangleShape2D_jscy8")
+script = ExtResource("7_tel4y")
 
 [node name="box4" type="CollisionShape2D" parent="camera_pivot"]
 position = Vector2(0, 634)
 shape = SubResource("RectangleShape2D_pm3ni")
+script = ExtResource("7_tel4y")
 
-[node name="player" type="RigidBody2D" parent="."]
+[node name="player" type="RigidBody2D" parent="." node_paths=PackedStringArray("no_of_times_hit")]
 z_index = 100
 position = Vector2(107, 0)
 collision_layer = 33
@@ -220,6 +225,7 @@ script = ExtResource("1_sugp2")
 sit_prefab = ExtResource("2_a8y0u")
 good_boy_prefab = ExtResource("10_jkv2x")
 movement_speed = 400.0
+no_of_times_hit = NodePath("../ui/ui/postgame/center/vbox/number")
 
 [node name="behaviour_wide" type="Node2D" parent="player"]
 script = ExtResource("13_yc10j")
@@ -289,6 +295,7 @@ texture = ExtResource("21_tel4y")
 script = ExtResource("25_tel4y")
 
 [node name="dog" type="RigidBody2D" parent="." node_paths=PackedStringArray("sprite")]
+position = Vector2(-182, 156)
 collision_layer = 5
 collision_mask = 4
 gravity_scale = 0.0
@@ -368,13 +375,14 @@ theme_override_constants/margin_bottom = 30
 script = ExtResource("17_muem4")
 
 [node name="red" type="Panel" parent="ui/ui/enemy_health"]
-self_modulate = Color(0.896005, 0, 0.239667, 1)
+self_modulate = Color(0.705882, 0.321569, 0.321569, 1)
 custom_minimum_size = Vector2(400, 30)
 layout_mode = 2
 theme = SubResource("Theme_jbj1t")
 theme_override_styles/panel = SubResource("StyleBoxFlat_muem4")
 
 [node name="green" type="Panel" parent="ui/ui/enemy_health/red"]
+self_modulate = Color(0.94902, 0.941176, 0.898039, 1)
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 1
 anchors_preset = 4
@@ -445,5 +453,62 @@ bbcode_enabled = true
 text = "ASD"
 vertical_alignment = 1
 script = ExtResource("22_pm3ni")
+
+[node name="postgame" type="Panel" parent="ui/ui"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tel4y")
+script = ExtResource("30_qkpxi")
+
+[node name="center" type="CenterContainer" parent="ui/ui/postgame"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="vbox" type="VBoxContainer" parent="ui/ui/postgame/center"]
+layout_mode = 2
+
+[node name="you_won" type="RichTextLabel" parent="ui/ui/postgame/center/vbox"]
+modulate = Color(0.94902, 0.941176, 0.898039, 1)
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+theme = SubResource("Theme_tel4y")
+text = "YOU WON"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="no_of_times_hit" type="RichTextLabel" parent="ui/ui/postgame/center/vbox"]
+modulate = Color(0.94902, 0.941176, 0.898039, 1)
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+theme = SubResource("Theme_qkpxi")
+text = "Number of times hit:"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="number" type="RichTextLabel" parent="ui/ui/postgame/center/vbox"]
+modulate = Color(0.94902, 0.941176, 0.898039, 1)
+custom_minimum_size = Vector2(400, 60)
+layout_mode = 2
+theme = SubResource("Theme_qkpxi")
+text = "0"
+horizontal_alignment = 1
+
+[node name="manager" type="Node2D" parent="." node_paths=PackedStringArray("enemy_spawn_pos", "dialog")]
+script = ExtResource("2_0ld40")
+debug_mode = true
+enemy_spawn_pos = NodePath("../camera_pivot/enemy_spawn_pos")
+dialog = NodePath("../ui/ui/dialog")
+lich_1_prefab = ExtResource("3_0ld40")
 
 [connection signal="timeout" from="player/damage_taken_timer" to="player" method="_on_damage_taken_timer_timeout"]

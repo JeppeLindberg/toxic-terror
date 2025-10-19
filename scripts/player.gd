@@ -16,6 +16,8 @@ var movement_direction: Vector2
 @onready var damage_taken_timer:Timer = get_node('damage_taken_timer')
 @onready var manager = get_node('/root/main/manager')
 @onready var spawn_pos = get_node('/root/main/camera_pivot/player_spawn_pos')
+@onready var player_fade_out_pos = get_node('/root/main/camera_pivot/player_fade_out_pos')
+@export var no_of_times_hit: RichTextLabel
 
 var accept_input = true
 
@@ -28,6 +30,8 @@ func _ready() -> void:
 
 	global_position = spawn_pos.global_position
 	starting_pos = global_position
+
+	behaviour_wide.activate()
 
 func reset():
 	global_position = starting_pos
@@ -53,22 +57,25 @@ func _process(_delta: float) -> void:
 		improve_accuracy = false
 
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	handle_movement_controls()
 
-	# if manager.simulate:
-	var modified_speed = movement_speed
-	if improve_accuracy:
-		modified_speed *= slow_mode_mult
+	if not manager.game_ending:
+		var modified_speed = movement_speed
+		if improve_accuracy:
+			modified_speed *= slow_mode_mult
 
-	linear_velocity = movement_direction * modified_speed
+		linear_velocity = movement_direction * modified_speed
 	
-	# if not manager.simulate:
-	# 	var dist =  movement_speed * 10.0
-	# 	if spawn_pos.global_position.distance_to(global_position) < dist:
-	# 		linear_velocity = spawn_pos.global_position - global_position
-	# 	else:
-	# 		linear_velocity =( spawn_pos.global_position - global_position).normalized() * dist
+	if manager.game_ending:
+		var dist =  movement_speed * delta
+		var target_node = spawn_pos
+		if manager.fade_out:
+			target_node = player_fade_out_pos
+		if target_node.global_position.distance_to(global_position) < dist:
+			global_position = target_node.global_position
+		else:
+			global_position +=( target_node.global_position - global_position).normalized() *dist
 
 	
 func handle_movement_controls():
@@ -81,10 +88,10 @@ func handle_movement_controls():
 	movement_direction = input.normalized()
 
 func hit():
+	no_of_times_hit.text = str(int(no_of_times_hit.text) + 1)
 	all_shield.enabled = true
 	damage_taken_timer.start()
 
 
 func _on_damage_taken_timer_timeout() -> void:
 	all_shield.enabled = false
-	print(all_shield.enabled)

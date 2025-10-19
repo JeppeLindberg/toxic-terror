@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b07ku7y7nadk5"]
+
+[ext_resource type="Script" uid="uid://dkkw6sd1syv7x" path="res://scripts/bullet.gd" id="1_2oght"]
+[ext_resource type="Texture2D" uid="uid://c0il3jcguwea7" path="res://sprites/circle.png" id="2_i8dxy"]
+
+[node name="enemy_bullet_1" type="Node2D"]
+script = ExtResource("1_2oght")
+target_layer = 17
+
+[node name="sprite" type="Sprite2D" parent="."]
+modulate = Color(0.698759, 0.335851, 0.75352, 1)
+scale = Vector2(0.420344, 0.420344)
+texture = ExtResource("2_i8dxy")

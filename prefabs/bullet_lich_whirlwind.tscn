@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://3y4f2c66g4bs"]
+
+[ext_resource type="Script" uid="uid://dkkw6sd1syv7x" path="res://scripts/bullet.gd" id="1_sff7x"]
+[ext_resource type="Script" uid="uid://7f1nsqmosc1h" path="res://scripts/bullet_behaviour_whirlwind.gd" id="2_j3xrv"]
+[ext_resource type="PackedScene" uid="uid://bp1t1epbudm4h" path="res://prefabs/bullet_lich_whirlwind_pellet.tscn" id="3_dsyt6"]
+[ext_resource type="Script" uid="uid://d0xte76yfheb2" path="res://scripts/rotator.gd" id="3_sff7x"]
+
+[node name="bullet_lich_whirlwind" type="Node2D"]
+script = ExtResource("1_sff7x")
+debug_mode = true
+target_layer = 9
+move_speed = 0.0
+max_lifetime = 30.0
+
+[node name="bullet_behaviour" type="Node2D" parent="." node_paths=PackedStringArray("rotator")]
+script = ExtResource("2_j3xrv")
+pellet_prefab = ExtResource("3_dsyt6")
+rotator = NodePath("../rotator")
+speed = 200.0
+
+[node name="rotator" type="Node2D" parent="."]
+script = ExtResource("3_sff7x")
+seconds_per_lap = 2.0
+
+[node name="Node2D" type="Node2D" parent="rotator"]
+position = Vector2(-43.3015, -24.9997)
+rotation = -1.04721
+
+[node name="Node2D8" type="Node2D" parent="rotator"]
+position = Vector2(-43.3011, 25.0003)
+rotation = -2.0944
+
+[node name="Node2D9" type="Node2D" parent="rotator"]
+position = Vector2(0.000222127, 50)
+rotation = 3.14159
+
+[node name="Node2D10" type="Node2D" parent="rotator"]
+position = Vector2(43.3013, 24.9999)
+rotation = 2.09439
+
+[node name="Node2D11" type="Node2D" parent="rotator"]
+position = Vector2(43.3012, -25.0001)
+rotation = 1.0472
+
+[node name="Node2D12" type="Node2D" parent="rotator"]
+position = Vector2(0, -50)

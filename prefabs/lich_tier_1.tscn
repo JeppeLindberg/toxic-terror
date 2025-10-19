@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c03qfal3lf4xo"]
+[gd_scene load_steps=11 format=3 uid="uid://c03qfal3lf4xo"]
 
 [ext_resource type="Script" uid="uid://d0c8pwxwabi75" path="res://scripts/tier.gd" id="1_2vsr1"]
 [ext_resource type="Script" uid="uid://043iv0jd846f" path="res://scripts/behaviour.gd" id="2_131e8"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bcau0eex44e5i" path="res://scripts/array_copier.gd" id="6_8egbp"]
 [ext_resource type="PackedScene" uid="uid://ed44xqawf5aq" path="res://prefabs/bullet_emitter_wave_2.tscn" id="8_34mkl"]
 [ext_resource type="PackedScene" uid="uid://h6bfmf6sxlns" path="res://prefabs/bullet_emitter_wave_2_alt.tscn" id="9_ksguw"]
+[ext_resource type="PackedScene" uid="uid://3y4f2c66g4bs" path="res://prefabs/bullet_lich_whirlwind.tscn" id="10_cpj5x"]
 [ext_resource type="Script" uid="uid://ca5crlgksiui8" path="res://scripts/pattern_lich_seeker.gd" id="12_h4yvd"]
 
 [node name="tier_1" type="Node2D"]
@@ -51,3 +52,11 @@ script = ExtResource("6_8egbp")
 packed_scene = ExtResource("9_ksguw")
 interval = 30.0
 count = 100
+
+[node name="bullet_emitter_whirlwind" type="Node2D" parent="lich_behaviour_2"]
+script = ExtResource("3_1dkf0")
+bullet = ExtResource("10_cpj5x")
+base_bullets_per_sec = 0.5
+
+[node name="pattern" type="Node2D" parent="lich_behaviour_2/bullet_emitter_whirlwind"]
+script = ExtResource("12_h4yvd")

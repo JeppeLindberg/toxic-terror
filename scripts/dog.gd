@@ -8,6 +8,7 @@ var direction_to_player = Vector2.ZERO
 @onready var main = get_node('/root/main')
 @onready var player = get_node('/root/main/player')
 @onready var shield = get_node('shield')
+@onready var manager = get_node('/root/main/manager')
 
 @export var sprite: AnimatedSprite2D
 @export var movement_speed : float = 300.0
@@ -38,6 +39,11 @@ func _physics_process(_delta: float) -> void:
 			linear_velocity = direction_to_player * movement_speed
 
 func _update_state():
+	if manager.game_ending and state == 'sit':
+		state = 'move_toward_player'
+		shield.enabled = false
+		return;
+
 	var nodes = main.get_nodes_in_shape(detect_player_shape, global_transform, player_layer)
 
 	var can_see_player = false

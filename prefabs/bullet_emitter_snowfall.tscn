@@ -7,9 +7,9 @@
 [node name="bullet_emitter_snowfall" type="Node2D"]
 rotation = 2.03505
 script = ExtResource("1_o72s6")
+debug_mode = true
 bullet = ExtResource("2_o72s6")
-base_bullets_per_sec = 4.0
-scale_bullets_per_sec_w_damage_taken = true
+base_bullets_per_sec = 3.5
 
 [node name="pattern" type="Node2D" parent="."]
 script = ExtResource("3_kame0")

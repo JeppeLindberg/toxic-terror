@@ -15,6 +15,7 @@ var initialized = false
 @export var move_speed = 20.0
 @export var max_health = 100.0
 @export var current_tier = 2
+@export var explode: PackedScene
 
 @onready var _current_health = max_health
 var damage_taken_dec = 1.0
@@ -30,7 +31,7 @@ func _ready() -> void:
 
 	target_pos_node = enemy_pos_1;
 
-	activate_tier()
+	spawn_current_tier()
 
 func _process(delta: float) -> void:
 	if not initialized:
@@ -50,6 +51,7 @@ func _process(delta: float) -> void:
 				target_pos_node = enemy_pos_2
 			else:
 				target_pos_node = enemy_pos_1
+		
 
 	if not manager.simulate:
 		var dist =  move_speed*delta * 10.0
@@ -62,13 +64,14 @@ func go_to_next_tier():
 	current_tier += 1
 	max_health += 50
 	health_dec_visual_modifier = -1.0
+	_current_health = max_health
 
-	activate_tier()
+	spawn_current_tier()
 
-func activate_tier():
+func spawn_current_tier():
 	for child in main.get_children_in_group(self, 'tier'):
 		child.queue_free()
-	
+
 	var new_tier = null
 	if current_tier == 1:
 		new_tier = tier_1.instantiate()
@@ -76,8 +79,8 @@ func activate_tier():
 		new_tier = tier_2.instantiate()
 	add_child(new_tier)
 	new_tier.position = Vector2.ZERO
-	
-	for child in main.get_children_in_group(self, 'behaviour'):
+
+	for child in main.get_children_in_group(new_tier, 'behaviour'):
 		if child.activate_at_dec == 1.0:
 			child.activate()
 			return;
@@ -95,3 +98,9 @@ func hit(damage = 1.0):
 	
 	if _current_health <= 0.0:
 		health_depleted.emit()
+
+func destroy():
+	var new_explode = explode.instantiate()
+	main.add_child(new_explode)
+	new_explode.global_position = global_position
+	queue_free()
