@@ -3,8 +3,11 @@ extends Node2D
 @export_flags_2d_physics var basic_layer: int
 @export_flags_2d_physics var no_layer: int
 
+@export var music: AudioStream
+
 @onready var world = get_node('/root/main')
 @onready var debug = get_node('/root/main/debug_ui/debug')
+@onready var audio = get_node('/root/main/audio')
 
 var noise_perlin: FastNoiseLite
 
@@ -13,9 +16,12 @@ var _delta = 0.0
 var _bullet_id = 0
 var _frame_id = 0
 
+
+
 func _ready() -> void:
 	noise_perlin = FastNoiseLite.new()
 	noise_perlin.noise_type = FastNoiseLite.TYPE_PERLIN
+	audio.play_music(music)
 
 func _process(frame_delta: float) -> void:
 	_seconds += frame_delta

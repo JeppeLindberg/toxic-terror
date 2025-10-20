@@ -1,9 +1,10 @@
-[gd_scene load_steps=58 format=3 uid="uid://08tcbi0rlywr"]
+[gd_scene load_steps=61 format=3 uid="uid://08tcbi0rlywr"]
 
 [ext_resource type="Script" uid="uid://mj5rryc047c7" path="res://scripts/player.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://cg4h8dfhcecue" path="res://scripts/main.gd" id="1_tbgi4"]
 [ext_resource type="Script" uid="uid://dyimu4htgkla" path="res://scripts/manager.gd" id="2_0ld40"]
 [ext_resource type="PackedScene" uid="uid://b78dlredjpcxm" path="res://prefabs/sit.tscn" id="2_a8y0u"]
+[ext_resource type="AudioStream" uid="uid://c1vae1m7jkfye" path="res://audio/Sketchbook 2024-10-30.ogg" id="2_j8jky"]
 [ext_resource type="Script" uid="uid://dd6y615h01e4g" path="res://scripts/camera_pivot.gd" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://b6626f0ja7eqp" path="res://prefabs/enemy_lich_1.tscn" id="3_0ld40"]
 [ext_resource type="Script" uid="uid://bliqtt0vluaog" path="res://scripts/dog.gd" id="3_jyhfs"]
@@ -32,6 +33,8 @@
 [ext_resource type="Texture2D" uid="uid://denayw2atxswm" path="res://sprites/big_circle.png" id="24_fv21b"]
 [ext_resource type="Script" uid="uid://dximhmyaq8in3" path="res://scripts/big_circle_sprite.gd" id="25_tel4y"]
 [ext_resource type="Script" uid="uid://c78uw725wonv5" path="res://scripts/postgame.gd" id="30_qkpxi"]
+[ext_resource type="Script" uid="uid://batvjjcovejlr" path="res://scripts/audio.gd" id="33_5q0nq"]
+[ext_resource type="PackedScene" uid="uid://df6qyrqhjtn5q" path="res://prefabs/audio_player.tscn" id="34_dgi5k"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gqmmt"]
 friction = 0.0
@@ -151,6 +154,7 @@ default_font_size = 30
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_tbgi4")
+music = ExtResource("2_j8jky")
 
 [node name="tiles_repeater" type="Node2D" parent="." node_paths=PackedStringArray("track_node")]
 script = ExtResource("4_og1vs")
@@ -510,5 +514,9 @@ debug_mode = true
 enemy_spawn_pos = NodePath("../camera_pivot/enemy_spawn_pos")
 dialog = NodePath("../ui/ui/dialog")
 lich_1_prefab = ExtResource("3_0ld40")
+
+[node name="audio" type="Node" parent="."]
+script = ExtResource("33_5q0nq")
+audio_player_prefab = ExtResource("34_dgi5k")
 
 [connection signal="timeout" from="player/damage_taken_timer" to="player" method="_on_damage_taken_timer_timeout"]
