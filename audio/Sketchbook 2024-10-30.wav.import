@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b15noek5lhj5e"
+path="res://.godot/imported/Sketchbook 2024-10-30.wav-9f5e777693d03732047c52f97deb2697.sample"
+
+[deps]
+
+source_file="res://audio/Sketchbook 2024-10-30.wav"
+dest_files=["res://.godot/imported/Sketchbook 2024-10-30.wav-9f5e777693d03732047c52f97deb2697.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

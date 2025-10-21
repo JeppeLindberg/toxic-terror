@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://cg4h8dfhcecue" path="res://scripts/main.gd" id="1_tbgi4"]
 [ext_resource type="Script" uid="uid://dyimu4htgkla" path="res://scripts/manager.gd" id="2_0ld40"]
 [ext_resource type="PackedScene" uid="uid://b78dlredjpcxm" path="res://prefabs/sit.tscn" id="2_a8y0u"]
-[ext_resource type="AudioStream" uid="uid://c1vae1m7jkfye" path="res://audio/Sketchbook 2024-10-30.ogg" id="2_j8jky"]
+[ext_resource type="AudioStream" uid="uid://b15noek5lhj5e" path="res://audio/Sketchbook 2024-10-30.wav" id="2_kmb1v"]
 [ext_resource type="Script" uid="uid://dd6y615h01e4g" path="res://scripts/camera_pivot.gd" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://b6626f0ja7eqp" path="res://prefabs/enemy_lich_1.tscn" id="3_0ld40"]
 [ext_resource type="Script" uid="uid://bliqtt0vluaog" path="res://scripts/dog.gd" id="3_jyhfs"]
@@ -155,7 +155,7 @@ default_font_size = 30
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_tbgi4")
-music = ExtResource("2_j8jky")
+music = ExtResource("2_kmb1v")
 audio_bullet_lazer = ExtResource("3_kmb1v")
 
 [node name="tiles_repeater" type="Node2D" parent="." node_paths=PackedStringArray("track_node")]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dqq5ignw0ebpy"]
+[gd_scene load_steps=5 format=3 uid="uid://dqq5ignw0ebpy"]
 
 [ext_resource type="Script" uid="uid://dkkw6sd1syv7x" path="res://scripts/bullet.gd" id="1_e4c2d"]
+[ext_resource type="AudioStream" uid="uid://lnon1dxyxqnd" path="res://audio/Retro Blop 07.wav" id="2_36p38"]
 [ext_resource type="Texture2D" uid="uid://c0il3jcguwea7" path="res://sprites/circle.png" id="2_tlma8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_85g3d"]
@@ -10,6 +11,7 @@ radius = 12.0
 script = ExtResource("1_e4c2d")
 target_layer = 2
 move_speed = 600.0
+spawn_audio = ExtResource("2_36p38")
 
 [node name="sprite" type="Sprite2D" parent="."]
 modulate = Color(0.766788, 0.759244, 0, 1)
