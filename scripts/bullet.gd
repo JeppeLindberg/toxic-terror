@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var main = get_node('/root/main')
+@onready var audio = get_node('/root/main/audio')
 @onready var shape = get_node_or_null('shape')
 var bullet_behaviour
 
@@ -11,6 +12,7 @@ var bullet_behaviour
 @export var move_speed = 400.0
 @export var max_lifetime = 5.0
 @export var use_delta_time = true
+@export var spawn_audio: AudioStream = null
 
 var _initialized = false
 
@@ -22,6 +24,11 @@ var _last_checked_transform: Transform2D
 var _despawn_time = 0.0
 
 
+func _ready() -> void:
+	if spawn_audio == null:
+		audio.play_effect(main.audio_bullet_lazer)
+	else:
+		audio.play_effect(spawn_audio)
 
 func _process(delta: float) -> void:
 	time_charge += delta

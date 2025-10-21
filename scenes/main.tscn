@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://08tcbi0rlywr"]
+[gd_scene load_steps=62 format=3 uid="uid://08tcbi0rlywr"]
 
 [ext_resource type="Script" uid="uid://mj5rryc047c7" path="res://scripts/player.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://cg4h8dfhcecue" path="res://scripts/main.gd" id="1_tbgi4"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dd6y615h01e4g" path="res://scripts/camera_pivot.gd" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://b6626f0ja7eqp" path="res://prefabs/enemy_lich_1.tscn" id="3_0ld40"]
 [ext_resource type="Script" uid="uid://bliqtt0vluaog" path="res://scripts/dog.gd" id="3_jyhfs"]
+[ext_resource type="AudioStream" uid="uid://chwh82sp51rqu" path="res://audio/Retro Blop 22.wav" id="3_kmb1v"]
 [ext_resource type="Script" uid="uid://waakrjkxqugk" path="res://scripts/sprite_repeater.gd" id="4_og1vs"]
 [ext_resource type="PackedScene" uid="uid://csie28gmh1vj3" path="res://prefabs/sprite_tiles.tscn" id="5_og1vs"]
 [ext_resource type="PackedScene" uid="uid://dromegv3dgvsh" path="res://prefabs/sprite_wall_1.tscn" id="6_2wyq8"]
@@ -155,6 +156,7 @@ default_font_size = 30
 [node name="main" type="Node2D"]
 script = ExtResource("1_tbgi4")
 music = ExtResource("2_j8jky")
+audio_bullet_lazer = ExtResource("3_kmb1v")
 
 [node name="tiles_repeater" type="Node2D" parent="." node_paths=PackedStringArray("track_node")]
 script = ExtResource("4_og1vs")

@@ -5,6 +5,8 @@ extends Node2D
 
 @export var music: AudioStream
 
+@export var audio_bullet_lazer: AudioStream
+
 @onready var world = get_node('/root/main')
 @onready var debug = get_node('/root/main/debug_ui/debug')
 @onready var audio = get_node('/root/main/audio')
