@@ -6,6 +6,7 @@ extends Area2D
 @onready var main = get_node('/root/main')
 @onready var manager = get_node('/root/main/manager')
 @onready var spawn_pos = get_node('/root/main/camera_pivot/enemy_spawn_pos')
+@onready var bullets = get_node('/root/main/bullets')
 
 var target_pos_node = null
 var initialized = false
@@ -69,6 +70,10 @@ func go_to_next_tier():
 	spawn_current_tier()
 
 func spawn_current_tier():
+	for bullet in bullets.get_children():
+		if bullet.remove_when_sceen_cleared:
+			bullet.queue_free()
+
 	for child in main.get_children_in_group(self, 'tier'):
 		child.queue_free()
 

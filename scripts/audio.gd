@@ -31,7 +31,7 @@ func play_effect(audio_stream):
 
 	played_effects.append({
 		'path':audio_stream.resource_path,
-		'timeout': main.seconds() + 0.01
+		'timeout': main.seconds() + 0.05
 	})
 
 func play_music(audio_stream):

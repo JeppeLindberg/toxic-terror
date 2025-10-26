@@ -18,6 +18,7 @@ func _ready():
 		var new_bullet = pellet_prefab.instantiate()
 		new_bullet.get_node('bullet_behaviour').target_node = child
 		bullets.add_child(new_bullet)
+		new_bullet.global_position = global_position
 		new_bullet.time_charge = 0.1
 		new_bullet.move()
 

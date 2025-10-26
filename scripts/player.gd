@@ -88,9 +88,10 @@ func handle_movement_controls():
 	movement_direction = input.normalized()
 
 func hit():
-	no_of_times_hit.text = str(int(no_of_times_hit.text) + 1)
-	all_shield.enabled = true
-	damage_taken_timer.start()
+	if not manager.game_ending:
+		no_of_times_hit.text = str(int(no_of_times_hit.text) + 1)
+		all_shield.enabled = true
+		damage_taken_timer.start()
 
 
 func _on_damage_taken_timer_timeout() -> void:

@@ -4,6 +4,7 @@ extends Node2D
 @export var damage_taken_dec = 1.0
 
 @onready var main = get_node('/root/main')
+@onready var bullets = get_node('/root/main/bullets')
 
 
 func _ready() -> void:
@@ -11,6 +12,10 @@ func _ready() -> void:
 
 
 func activate():
+	for bullet in bullets.get_children():
+		if bullet.remove_when_sceen_cleared:
+			bullet.queue_free()
+
 	var enemy = self
 	while not enemy.is_in_group('enemy'):
 		enemy = enemy.get_parent()
