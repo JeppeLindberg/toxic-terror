@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://08tcbi0rlywr"]
+[gd_scene load_steps=63 format=3 uid="uid://08tcbi0rlywr"]
 
 [ext_resource type="Script" uid="uid://mj5rryc047c7" path="res://scripts/player.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://cg4h8dfhcecue" path="res://scripts/main.gd" id="1_tbgi4"]
@@ -34,6 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://denayw2atxswm" path="res://sprites/big_circle.png" id="24_fv21b"]
 [ext_resource type="Script" uid="uid://dximhmyaq8in3" path="res://scripts/big_circle_sprite.gd" id="25_tel4y"]
 [ext_resource type="Script" uid="uid://c78uw725wonv5" path="res://scripts/postgame.gd" id="30_qkpxi"]
+[ext_resource type="Script" uid="uid://bqorxv61vsf8q" path="res://scripts/enter.gd" id="32_fuf3a"]
 [ext_resource type="Script" uid="uid://batvjjcovejlr" path="res://scripts/audio.gd" id="33_5q0nq"]
 [ext_resource type="PackedScene" uid="uid://df6qyrqhjtn5q" path="res://prefabs/audio_player.tscn" id="34_dgi5k"]
 
@@ -142,7 +143,7 @@ radius = 125.016
 bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gqmmt"]
-bg_color = Color(0.6, 0.6, 0.6, 0.403922)
+bg_color = Color(0.294118, 0.254902, 0.345098, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tel4y"]
 bg_color = Color(0.129412, 0.129412, 0.137255, 1)
@@ -401,7 +402,7 @@ grow_vertical = 2
 theme = SubResource("Theme_jbj1t")
 theme_override_styles/panel = SubResource("StyleBoxFlat_muem4")
 
-[node name="dialog" type="MarginContainer" parent="ui/ui" node_paths=PackedStringArray("text_panel", "text", "speaker_text")]
+[node name="dialog" type="MarginContainer" parent="ui/ui" node_paths=PackedStringArray("text_panel", "text", "speaker_text", "enter")]
 custom_minimum_size = Vector2(800, 200)
 layout_mode = 1
 anchors_preset = 7
@@ -414,51 +415,70 @@ grow_vertical = 0
 theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 30
-theme_override_constants/margin_bottom = 30
+theme_override_constants/margin_bottom = 0
 script = ExtResource("21_jscy8")
-text_panel = NodePath("panel")
-text = NodePath("panel/text_margin/textbox")
-speaker_text = NodePath("panel/speaker_margin/speaker")
+text_panel = NodePath("margin/panel")
+text = NodePath("margin/panel/text_margin/textbox")
+speaker_text = NodePath("margin/panel/speaker_margin/speaker")
+enter = NodePath("enter")
 
-[node name="panel" type="Panel" parent="ui/ui/dialog"]
+[node name="margin" type="MarginContainer" parent="ui/ui/dialog"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 30
+
+[node name="panel" type="Panel" parent="ui/ui/dialog/margin"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gqmmt")
 
-[node name="speaker_margin" type="MarginContainer" parent="ui/ui/dialog/panel"]
+[node name="speaker_margin" type="MarginContainer" parent="ui/ui/dialog/margin/panel"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 30.0
 grow_horizontal = 2
-theme_override_constants/margin_left = 200
+theme_override_constants/margin_left = 0
 
-[node name="speaker" type="RichTextLabel" parent="ui/ui/dialog/panel/speaker_margin"]
+[node name="speaker" type="RichTextLabel" parent="ui/ui/dialog/margin/panel/speaker_margin"]
+self_modulate = Color(0.94902, 0.941176, 0.898039, 1)
 layout_mode = 2
 bbcode_enabled = true
 text = "LICH"
+horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("22_pm3ni")
 
-[node name="text_margin" type="MarginContainer" parent="ui/ui/dialog/panel"]
-custom_minimum_size = Vector2(600, 0)
+[node name="text_margin" type="MarginContainer" parent="ui/ui/dialog/margin/panel"]
 layout_mode = 1
-anchors_preset = 11
-anchor_left = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 0
+grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 60
+theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="textbox" type="RichTextLabel" parent="ui/ui/dialog/panel/text_margin"]
+[node name="textbox" type="RichTextLabel" parent="ui/ui/dialog/margin/panel/text_margin"]
+self_modulate = Color(0.94902, 0.941176, 0.898039, 1)
 layout_mode = 2
 bbcode_enabled = true
 text = "ASD"
+horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("22_pm3ni")
+
+[node name="enter" type="RichTextLabel" parent="ui/ui/dialog"]
+self_modulate = Color(0.94902, 0.941176, 0.898039, 1)
+layout_mode = 2
+bbcode_enabled = true
+text = "[ENTER]"
+horizontal_alignment = 2
+vertical_alignment = 2
+script = ExtResource("32_fuf3a")
 
 [node name="postgame" type="Panel" parent="ui/ui"]
 modulate = Color(1, 1, 1, 0)

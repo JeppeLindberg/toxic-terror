@@ -1,10 +1,13 @@
 extends MarginContainer
 
+@onready var main = get_node('/root/main')
+
 @export var text_panel: Panel
 @export var text_panel_sprite: Node2D
 @export var text: RichTextLabel
 @export var speaker_text: RichTextLabel
 @export var base_symbols_per_sec = 30.0
+@export var enter: Control
 
 var current_dialog = {}
 var symbols_per_sec = 0.0
@@ -42,6 +45,11 @@ func _update(delta):
 			elif time_progress > 1.0:
 				time_progress += 1000.0
 	
+	if int(main.seconds() * 2.0) % 2 == 0:
+		enter.visible = ready_for_next_text
+	else:
+		enter.visible = false
+
 func finish_dialog():
 	current_dialog = {}
 
